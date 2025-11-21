@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+    <title>VEXES INTELLIGENT SEARCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --bg-body: #f5f5f7;
+            --bg-app: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #000000;
+            --app-width: 600px;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-body);
+            font-family: 'Jost', sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex; justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* --- SPLASH SCREEN --- */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.6s ease-out;
+        }
+        .splash-logo {
+            font-family: 'Tenor Sans', sans-serif; font-size: 3.5rem; color: #000;
+            letter-spacing: -1px; margin-bottom: 10px;
+        }
+        .splash-sub {
+            font-size: 0.8rem; letter-spacing: 4px; color: #999; text-transform: uppercase; margin-bottom: 40px;
+        }
+        .lang-btn {
+            background: transparent; border: 1px solid #eee; color: #555;
+            padding: 12px 30px; min-width: 130px; margin: 6px;
+            font-family: 'Jost', sans-serif; letter-spacing: 1px; font-weight: 500;
+            cursor: pointer; transition: all 0.3s; border-radius: 30px;
+        }
+        .lang-btn:hover { border-color: #000; color: #000; }
+
+        /* --- APP CONTAINER --- */
+        .app-container {
+            width: 100%; max-width: var(--app-width);
+            background-color: var(--bg-app);
+            min-height: 100vh; position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            display: none; flex-direction: column; opacity: 0; transition: opacity 0.8s ease;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            padding: 40px 20px 15px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .brand-logo {
+            font-family: 'Tenor Sans', sans-serif; font-size: 2.5rem;
+            color: var(--accent-color); margin-bottom: 5px; text-decoration: none;
+        }
+        .brand-caption {
+            font-size: 0.7rem; letter-spacing: 2px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 20px;
+        }
+
+        .lang-switch-small {
+            position: absolute; top: 20px; right: 20px;
+            font-size: 0.75rem; color: #999; cursor: pointer; font-weight: 500;
+        }
+        [dir="rtl"] .lang-switch-small { right: auto; left: 20px; }
+
+        /* SEARCH INPUT */
+        .search-box { width: 100%; position: relative; margin-bottom: 10px; }
+        .search-input {
+            width: 100%; background: #f5f5f7; border: none;
+            padding: 16px 20px; padding-left: 48px; border-radius: 12px;
+            font-family: 'Jost', sans-serif; font-size: 1.05rem; color: #1d1d1f;
+            outline: none; transition: 0.3s;
+        }
+        .search-input:focus { background: #fff; box-shadow: 0 0 0 2px #000; }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.4; font-size: 1.2rem; }
+        [dir="rtl"] .search-input { padding-left: 20px; padding-right: 48px; }
+        [dir="rtl"] .search-icon { left: auto; right: 16px; }
+
+        /* --- CONTENT LIST --- */
+        .content-area { padding: 15px 20px; flex: 1; }
+
+        .card {
+            background: #fff; border-bottom: 1px solid #f0f0f0;
+            padding: 20px 5px; cursor: pointer; transition: background 0.2s;
+        }
+        .card:hover { background-color: #fafafa; }
+        .card:last-child { border-bottom: none; }
+        
+        .card-main { display: flex; justify-content: space-between; align-items: center; }
+        
+        .code-pill {
+            background: #000; color: #fff; font-family: 'Jost', sans-serif; font-weight: 500;
+            font-size: 0.9rem; padding: 4px 10px; border-radius: 6px; min-width: 65px; text-align: center;
+            margin-right: 15px;
+        }
+        [dir="rtl"] .code-pill { margin-right: 0; margin-left: 15px; }
+
+        .info-col { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .family-text { font-size: 0.65rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+        .perfume-name { font-size: 1rem; color: #1d1d1f; font-weight: 400; text-transform: uppercase; line-height: 1.3; }
+
+        .arrow { color: #d2d2d7; font-size: 0.8rem; transition: transform 0.3s; }
+        .card.active .arrow { transform: rotate(180deg); color: #000; }
+
+        /* Detaylar */
+        .details-panel {
+            max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+        .card.active .details-panel { max-height: 200px; opacity: 1; padding-top: 20px; }
+
+        .compare-box {
+            background: #f9f9f9; border-radius: 12px; padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid #eee;
+        }
+
+        .side { display: flex; flex-direction: column; align-items: center; width: 40%; }
+        .side-label { font-size: 0.6rem; color: #999; letter-spacing: 1px; margin-bottom: 5px; }
+
+        .bottle-icon {
+            width: 30px; height: 50px; border: 1.5px solid #333; border-radius: 2px;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .bottle-icon::before { content: ''; width: 12px; height: 6px; background: #333; position: absolute; top: -8px; }
+        .bottle-v { font-size: 0.8rem; font-weight: bold; }
+
+        .vs { font-family: 'Tenor Sans', sans-serif; font-style: italic; color: #ccc; font-size: 1.2rem; }
+
+        .view-btn {
+            text-decoration: none; color: #fff; background: #000;
+            padding: 8px 16px; font-size: 0.75rem; border-radius: 20px;
+            transition: 0.3s; display: flex; align-items: center; gap: 5px;
+        }
+        .view-btn:hover { background: #333; transform: scale(1.05); }
+
+        .msg-box { text-align: center; padding-top: 60px; color: #bbb; }
+        .msg-icon { font-size: 2rem; margin-bottom: 10px; opacity: 0.5; }
+        .no-results { text-align: center; color: #999; margin-top: 20px; }
+
+    </style>
+</head>
+<body>
+
+<div id="splash-screen">
+    <div class="splash-logo">veXes</div>
+    <div class="splash-sub">INTELLIGENT LIBRARY</div>
+    
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+        <button class="lang-btn" onclick="enterApp('tr')">TÜRKÇE</button>
+        <button class="lang-btn" onclick="enterApp('en')">ENGLISH</button>
+        <button class="lang-btn" onclick="enterApp('ru')">РУССКИЙ</button>
+        <button class="lang-btn" onclick="enterApp('ar')">عربي</button>
+    </div>
+</div>
+
+<div class="app-container" id="app-container">
+    <div class="header">
+        <div class="lang-switch-small" onclick="location.reload()">Change Lang</div>
+        <div class="brand-logo">veXes</div>
+        <div class="brand-caption">SMART SEARCH</div>
+
+        <div class="search-box">
+            <span class="search-icon">⚲</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="content-area" id="resultsArea">
+        <div class="msg-box">
+            <div class="msg-icon">✦</div>
+            <div id="start-text">...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- CONFIG ---
+    const translations = {
+        tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL" },
+        en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL" },
+        ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ" },
+        ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" }
+    };
+    let currentLang = 'tr';
+
+    // --- VEXES DATA (LATEST LIST - list3.xlsx) ---
+    const vexesData = [
+        {code: "M 101", name: "CREED AVENTUS", family: "Chypre / Fruity"},
+        {code: "M 102", name: "CHRISTIAN DIOR SAUVAGE", family: "Aromatic / Fougere"},
+        {code: "M 103", name: "CHANEL BLEU DE CHANEL", family: "Woody / Aromatic"},
+        {code: "M 104", name: "PACO RABANNE INVICTUS", family: "Woody / Aquatic"},
+        {code: "M 105", name: "VERSACE EROS MEN", family: "Aromatic / Fougere"},
+        {code: "M 106", name: "GIORGIO ARMANI ACQUA DI GIO MEN", family: "Aromatic / Aquatic"},
+        {code: "M 107", name: "PACO RABANNE 1 MILLION MEN", family: "Woody / Spicy"},
+        {code: "M 108", name: "HERMES TERRE D'HERMES", family: "Woody / Chypre"},
+        {code: "M 109", name: "JEAN PAUL GAULTIER LE MALE", family: "Oriental / Fougere"},
+        {code: "M 110", name: "TOM FORD NOIR EXTREME", family: "Oriental / Woody"},
+        {code: "M 111", name: "CHRISTIAN DIOR HOMME INTENSE", family: "Woody / Floral / Musk"},
+        {code: "M 112", name: "YVES SAINT LAURENT Y MEN", family: "Woody / Aromatic"},
+        {code: "M 113", name: "VIKTOR & ROLF SPICEBOMB", family: "Woody / Spicy"},
+        {code: "M 114", name: "BVLGARI MAN IN BLACK", family: "Oriental / Floral"},
+        {code: "M 115", name: "AZZARO WANTED", family: "Woody / Spicy"},
+        {code: "M 116", name: "PRADA L'HOMME", family: "Woody / Chypre"},
+        {code: "M 117", name: "GIVENCHY GENTLEMAN", family: "Woody / Aromatic"},
+        {code: "M 118", name: "LACOSTE L.12.12 WHITE", family: "Woody / Aromatic"},
+        {code: "M 119", name: "MONT BLANC EXPLORER", family: "Woody / Aromatic"},
+        {code: "M 120", name: "DOLCE & GABBANA THE ONE", family: "Woody / Spicy"},
+        {code: "M 121", name: "CHANEL ALLURE HOMME SPORT", family: "Woody / Spicy"},
+        {code: "M 122", name: "CHRISTIAN DIOR SAUVAGE ELIXIR", family: "Aromatic / Spicy"},
+        {code: "M 123", name: "EMPORIO ARMANI STRONGER WITH YOU", family: "Aromatic / Fougere"},
+        {code: "M 124", name: "VERSACE EAU FRAICHE MEN", family: "Woody / Aquatic"},
+        {code: "M 125", name: "PACO RABANNE PHANTOM MEN", family: "Woody / Aromatic"},
+        {code: "M 126", name: "JEAN PAUL GAULTIER SCANDAL POUR HOMME", family: "Woody / Oriental"},
+        {code: "M 127", name: "HUGO BOSS BOTTLED", family: "Woody / Spicy"},
+        {code: "M 128", name: "BURBERRY HERO", family: "Woody / Spicy"},
+        {code: "M 129", name: "GIORGIO ARMANI BLACK CODE", family: "Oriental / Spicy"},
+        {code: "M 130", name: "PACO RABANNE BLACK XS", family: "Oriental / Woody"},
+        {code: "M 131", name: "CAROLINA HERRERA 212 VIP MEN", family: "Oriental / Woody"},
+        {code: "M 132", name: "CAROLINA HERRERA 212 MEN NYC", family: "Woody / Floral / Musk"},
+        {code: "M 133", name: "ROJA DOVE ELYSIUM", family: "Aromatic / Fougere"},
+        {code: "M 134", name: "VALENTINO UOMO BORN IN ROMA", family: "Woody / Spicy"},
+        {code: "M 135", name: "JEAN PAUL GAULTIER LE MALE LE PARFUM", family: "Oriental"},
+        {code: "M 136", name: "GIORGIO ARMANI ACQUA DI GIO PROFONDO", family: "Aromatic / Fougere"},
+        {code: "M 137", name: "CAROLINA HERRERA BAD BOY", family: "Oriental / Spicy"},
+        {code: "M 138", name: "DIESEL FUEL FOR LIFE", family: "Aromatic / Fougere"},
+        {code: "M 139", name: "DIESEL ONLY THE BRAVE", family: "Oriental / Woody"},
+        {code: "M 140", name: "CHRISTIAN DIOR FAHRENHEIT", family: "Woody / Floral / Musk"},
+        {code: "M 141", name: "GIVENCHY PI", family: "Oriental / Woody"},
+        {code: "M 142", name: "JOOP! HOMME", family: "Oriental / Fougere"},
+        {code: "M 143", name: "NIKOS SCULPTURE", family: "Oriental / Fougere"},
+        {code: "M 144", name: "ROCHAS MAN", family: "Oriental / Gourmand"},
+        {code: "M 145", name: "TOM FORD OUD WOOD", family: "Oriental / Woody"},
+        {code: "M 146", name: "TOM FORD TOBACCO VANILLE", family: "Oriental / Spicy"},
+        {code: "M 147", name: "TOM FORD FUCKING FABULOUS", family: "Leather"},
+        {code: "M 148", name: "NASOMATTO BLACK AFGANO", family: "Woody / Aromatic"},
+        {code: "M 149", name: "LOUIS VUITTON L'IMMENSITE", family: "Oriental / Spicy"},
+        {code: "M 150", name: "AMOUAGE INTERLUDE MAN", family: "Oriental / Woody"},
+        {code: "W 301", name: "LANCOME LA VIE EST BELLE", family: "Floral / Fruity / Gourmand"},
+        {code: "W 302", name: "YVES SAINT LAURENT LIBRE", family: "Oriental / Fougere"},
+        {code: "W 303", name: "CAROLINA HERRERA GOOD GIRL", family: "Oriental / Floral"},
+        {code: "W 304", name: "YVES SAINT LAURENT BLACK OPIUM", family: "Oriental / Vanilla"},
+        {code: "W 305", name: "CHRISTIAN DIOR J'ADORE", family: "Floral / Fruity"},
+        {code: "W 306", name: "CHANEL COCO MADEMOISELLE", family: "Chypre / Floral"},
+        {code: "W 307", name: "GIORGIO ARMANI SI", family: "Chypre / Fruity"},
+        {code: "W 308", name: "PACO RABANNE OLYMPEA", family: "Oriental / Floral"},
+        {code: "W 309", name: "VICTORIA'S SECRET BOMBSHELL", family: "Floral / Fruity"},
+        {code: "W 310", name: "GUCCI BLOOM", family: "Floral"},
+        {code: "W 311", name: "THIERRY MUGLER ALIEN", family: "Oriental / Woody"},
+        {code: "W 312", name: "VERSACE BRIGHT CRYSTAL", family: "Floral / Fruity"},
+        {code: "W 313", name: "DOLCE & GABBANA LIGHT BLUE", family: "Floral / Fruity"},
+        {code: "W 314", name: "CHLOE EAU DE PARFUM", family: "Floral"},
+        {code: "W 315", name: "GIVENCHY L'INTERDIT", family: "Oriental / Floral"},
+        {code: "W 316", name: "JEAN PAUL GAULTIER SCANDAL", family: "Chypre / Floral"},
+        {code: "W 317", name: "NARCISO RODRIGUEZ FOR HER", family: "Floral / Woody / Musk"},
+        {code: "W 318", name: "TOM FORD BLACK ORCHID", family: "Oriental / Chypre"},
+        {code: "W 319", name: "VALENTINO VOCE VIVA", family: "Floral / Woody / Musk"},
+        {code: "W 320", name: "BURBERRY HER", family: "Floral / Fruity / Gourmand"},
+        {code: "W 321", name: "LANCOME IDOLE", family: "Chypre / Floral"},
+        {code: "W 322", name: "YVES SAINT LAURENT MON PARIS", family: "Chypre / Fruity"},
+        {code: "W 323", name: "CHANEL CHANCE EAU TENDRE", family: "Floral / Fruity"},
+        {code: "W 324", name: "CHRISTIAN DIOR MISS DIOR BLOOMING BOUQUET", family: "Floral"},
+        {code: "W 325", name: "GIORGIO ARMANI MY WAY", family: "Floral"},
+        {code: "W 326", name: "PACO RABANNE LADY MILLION", family: "Floral / Fruity"},
+        {code: "W 327", name: "VERSACE CRYSTAL NOIR", family: "Oriental / Floral"},
+        {code: "W 328", name: "DOLCE & GABBANA THE ONE", family: "Oriental / Floral"},
+        {code: "W 329", name: "JEAN PAUL GAULTIER SO SCANDAL", family: "Floral / Fruity"},
+        {code: "W 330", name: "THIERRY MUGLER ANGEL", family: "Oriental / Vanilla"},
+        {code: "W 331", name: "ZARA GARDENIA", family: "Floral / Gourmand"},
+        {code: "W 332", name: "PRADA PARADOXE", family: "Floral / Amber"},
+        {code: "W 333", name: "THIERRY MUGLER ALIEN GODDESS", family: "Oriental / Floral"},
+        {code: "W 334", name: "PACO RABANNE FAME", family: "Floral / Woody / Musk"},
+        {code: "W 335", name: "BURBERRY MY BURBERRY", family: "Floral"},
+        {code: "W 336", name: "GUCCI FLORA GORGEOUS GARDENIA", family: "Floral / Fruity"},
+        {code: "W 337", name: "JO MALONE ENGLISH PEAR & FREESIA", family: "Chypre / Fruity"},
+        {code: "W 338", name: "KILIAN GOOD GIRL GONE BAD", family: "Floral / Fruity"},
+        {code: "W 339", name: "PARFUMS DE MARLY DELINA", family: "Floral"},
+        {code: "W 340", name: "JULIETTE HAS A GUN NOT A PERFUME", family: "Floral / Woody / Musk"},
+        {code: "W 341", name: "YVES SAINT LAURENT LIBRE INTENSE", family: "Oriental / Fougere"},
+        {code: "W 342", name: "LANCOME LA VIE EST BELLE INTENSEMENT", family: "Oriental / Floral"},
+        {code: "W 343", name: "CAROLINA HERRERA VERY GOOD GIRL", family: "Floral / Fruity"},
+        {code: "W 344", name: "CHRISTIAN DIOR HYPNOTIC POISON", family: "Oriental / Vanilla"},
+        {code: "W 345", name: "CHRISTIAN DIOR JOY", family: "Floral / Woody / Musk"},
+        {code: "W 346", name: "CHANEL N5", family: "Floral / Aldehyde"},
+        {code: "W 347", name: "CHANEL GABRIELLE", family: "Floral"},
+        {code: "W 348", name: "GIORGIO ARMANI SI PASSIONE", family: "Floral / Fruity"},
+        {code: "W 349", name: "GUCCI RUSH", family: "Chypre / Fruity"},
+        {code: "W 350", name: "GIVENCHY IRRESISTIBLE", family: "Floral / Fruity"},
+        {code: "W 351", name: "VERSACE DYLAN BLUE POUR FEMME", family: "Floral / Fruity"},
+        {code: "W 352", name: "DOLCE & GABBANA L'IMPERATRICE", family: "Floral / Aquatic"},
+        {code: "W 353", name: "JEAN PAUL GAULTIER CLASSIQUE", family: "Oriental / Floral"},
+        {code: "W 354", name: "VICTORIA'S SECRET TEASE", family: "Floral / Fruity"},
+        {code: "W 355", name: "TOM FORD VELVET ORCHID", family: "Oriental / Floral"},
+        {code: "U 601", name: "MAISON FRANCIS KURKDJIAN BACCARAT ROUGE 540", family: "Oriental / Floral"},
+        {code: "U 602", name: "KILIAN ANGELS SHARE", family: "Oriental / Vanilla"},
+        {code: "U 603", name: "TOM FORD LOST CHERRY", family: "Oriental / Floral"},
+        {code: "U 604", name: "EX NIHILO FLEUR NARCOTIQUE", family: "Floral / Fruity"},
+        {code: "U 605", name: "TIZIANA TERENZI KIRKE", family: "Chypre / Fruity"},
+        {code: "U 606", name: "SOSPIRO ERBA PURA", family: "Oriental"},
+        {code: "U 607", name: "LE LABO SANTAL 33", family: "Woody / Aromatic"},
+        {code: "U 608", name: "BYREDO BAL D'AFRIQUE", family: "Oriental / Woody"},
+        {code: "U 609", name: "MEMO PARIS AFRICAN LEATHER", family: "Leather"},
+        {code: "U 610", name: "MANCERA RED TOBACCO", family: "Woody / Spicy"},
+        {code: "U 611", name: "MONTALE INTENSE CAFE", family: "Oriental / Vanilla"},
+        {code: "U 612", name: "INITIO OUD FOR GREATNESS", family: "Woody / Spicy"},
+        {code: "U 613", name: "ROJA DOVE ELYSIUM", family: "Aromatic / Fougere"},
+        {code: "U 614", name: "XERJOFF NAXOS", family: "Aromatic / Spicy"},
+        {code: "U 615", name: "FREDERIC MALLE PORTRAIT OF A LADY", family: "Oriental / Floral"},
+        {code: "U 616", name: "NISHANE HACIVAT", family: "Chypre / Fruity"},
+        {code: "U 617", name: "TOM FORD BITTER PEACH", family: "Floral / Fruity"},
+        {code: "U 618", name: "TOM FORD SOLEIL BLANC", family: "Oriental / Floral"},
+        {code: "U 619", name: "KILIAN BLACK PHANTOM", family: "Oriental / Vanilla"},
+        {code: "U 620", name: "BYREDO GYPSY WATER", family: "Woody / Aromatic"},
+        {code: "U 621", name: "XERJOFF ACCENTO", family: "Chypre / Floral"},
+        {code: "U 622", name: "TIZIANA TERENZI ANDROMEDA", family: "Oriental / Floral"},
+        {code: "U 623", name: "MONTALE ROSES MUSK", family: "Floral / Woody / Musk"},
+        {code: "U 624", name: "MANCERA CEDRAT BOISE", family: "Citrus / Aromatic"},
+        {code: "U 625", name: "INITIO SIDE EFFECT", family: "Oriental"},
+        {code: "U 626", name: "MEMO PARIS MARFA", family: "Floral / Woody / Musk"},
+        {code: "U 627", name: "NASOMATTO BARAONDA", family: "Oriental / Spicy"},
+        {code: "U 628", name: "ORTO PARISI MEGAMARE", family: "Aromatic / Aquatic"},
+        {code: "U 629", name: "JO MALONE WOOD SAGE & SEA SALT", family: "Aromatic"},
+        {code: "U 630", name: "ESCENTRIC MOLECULES MOLECULE 02", family: "Oriental"},
+        {code: "U 631", name: "ZARKOPERFUME PINK MOLECULE 090.09", family: "Floral / Fruity / Gourmand"},
+        {code: "U 632", name: "VILHELM PARFUMERIE MANGO SKIN", family: "Floral / Fruity"}
+    ];
+
+    // --- HELPER FUNCTIONS ---
+    function cleanString(str) { return str.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); }
+
+    // --- FUZZY SEARCH ALGORITHM (Levenshtein Distance) ---
+    function levenshtein(a, b) {
+        const matrix = [];
+        for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+        for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) == a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
+                else matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+    function enterApp(lang) {
+        currentLang = lang;
+        if(lang === 'ar') document.body.dir = 'rtl'; else document.body.dir = 'ltr';
+        
+        const t = translations[lang];
+        document.getElementById('searchInput').placeholder = t.placeholder;
+        document.getElementById('start-text').innerText = t.start;
+
+        const splash = document.getElementById('splash-screen');
+        const app = document.getElementById('app-container');
+        
+        splash.style.opacity = '0';
+        splash.style.pointerEvents = 'none';
+        
+        setTimeout(() => {
+            splash.style.display = 'none';
+            app.style.display = 'flex';
+            setTimeout(() => { app.style.opacity = '1'; document.getElementById('searchInput').focus(); }, 50);
+        }, 600);
+    }
+
+    function toggleCard(element) {
+        if (element.classList.contains('active')) {
+            element.classList.remove('active');
+        } else {
+            document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+        }
+    }
+
+    function performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        const resultsArea = document.getElementById('resultsArea');
+        const t = translations[currentLang];
+
+        resultsArea.innerHTML = '';
+
+        if (!query) {
+            resultsArea.innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${t.start}</div></div>`;
+            return;
+        }
+
+        const cleanQuery = cleanString(query);
+        const queryUpper = query.toUpperCase();
+
+        // --- SCORING SYSTEM ---
+        let scoredResults = vexesData.map(item => {
+            let score = 0;
+            const itemCodeClean = cleanString(item.code);
+            const itemNameClean = cleanString(item.name);
+            
+            // 1. KOD EŞLEŞMESİ (En Yüksek)
+            if (itemCodeClean === cleanQuery) score = 100;
+            else if (itemCodeClean.includes(cleanQuery)) score = 80;
+
+            // 2. İSİM EŞLEŞMESİ
+            if (score < 80) {
+                if (itemNameClean === cleanQuery) score = 90;
+                else if (itemNameClean.includes(cleanQuery)) score = 70;
+                
+                // 3. FUZZY MATCH (Harf Hatası Toleransı)
+                // Sadece yukarıdakiler tutmazsa ve sorgu en az 3 harfse çalışır
+                else if (cleanQuery.length > 2) {
+                    const dist = levenshtein(cleanQuery, itemNameClean);
+                    // Benzerlik oranı (1 = tam eşleşme, 0 = alakasız)
+                    const maxLen = Math.max(cleanQuery.length, itemNameClean.length);
+                    const similarity = 1 - (dist / maxLen);
+                    
+                    // %50'den fazla benzerse puan ver
+                    if (similarity > 0.5) score = 50 * similarity;
+                }
+            }
+            return { ...item, score: score };
+        });
+
+        // Eşik değer (Puanı 30'dan düşük olanları gösterme) ve Sıralama
+        const filtered = scoredResults
+            .filter(item => item.score > 25)
+            .sort((a, b) => b.score - a.score);
+
+        if (filtered.length === 0) {
+            resultsArea.innerHTML = `<div class="msg-box">${t.empty}</div>`;
+            return;
+        }
+
+        // En alakalı ilk 50 sonucu göster
+        filtered.slice(0, 50).forEach(item => {
+            const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle original")}`;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = function() { toggleCard(this); };
+            
+            card.innerHTML = `
+                <div class="card-main">
+                    <div style="display:flex; align-items:center; width:100%;">
+                        <div class="code-pill">${item.code}</div>
+                        <div class="info-col">
+                            <div class="family-text">${item.family || 'FRAGRANCE'}</div>
+                            <div class="perfume-name">${item.name}</div>
+                        </div>
+                    </div>
+                    <div class="arrow">▼</div>
+                </div>
+                
+                <div class="details-panel">
+                    <div class="compare-box">
+                        <div class="side">
+                            <div class="side-label">${t.beas}</div>
+                            <div class="bottle-icon"><div class="bottle-v">V</div></div>
+                        </div>
+                        <div class="vs">vs</div>
+                        <div class="side">
+                            <div class="side-label">${t.orig}</div>
+                            <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                                <span>👁</span> ${t.btn}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsArea.appendChild(card);
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', performSearch);
+
+</script>
+
+</body>
+</html>
