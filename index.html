@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
-    <title>VEXES COLLECTION</title>
+    <title>VEXES GLOBAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet">
     <style>
         /* --- THEME VARIABLES --- */
@@ -44,13 +44,19 @@
         .splash-sub {
             font-size: 0.8rem; letter-spacing: 4px; color: #999; text-transform: uppercase; margin-bottom: 40px;
         }
+        
+        .lang-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 320px;
+        }
+
         .lang-btn {
             background: transparent; border: 1px solid #eee; color: #555;
-            padding: 12px 30px; min-width: 130px; margin: 6px;
-            font-family: 'Jost', sans-serif; letter-spacing: 1px; font-weight: 500;
-            cursor: pointer; transition: all 0.3s; border-radius: 30px;
+            padding: 12px 0; width: 100px; /* Sabit genişlik */
+            font-family: 'Jost', sans-serif; letter-spacing: 1px; font-weight: 500; font-size: 0.8rem;
+            cursor: pointer; transition: all 0.3s; border-radius: 8px;
+            text-transform: uppercase;
         }
-        .lang-btn:hover { border-color: #000; color: #000; }
+        .lang-btn:hover { border-color: #000; color: #000; background: #fafafa; }
 
         /* --- APP CONTAINER --- */
         .app-container {
@@ -168,11 +174,14 @@
     <div class="splash-logo">veXes</div>
     <div class="splash-sub">INTELLIGENT LIBRARY</div>
     
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+    <div class="lang-grid">
         <button class="lang-btn" onclick="enterApp('tr')">TÜRKÇE</button>
         <button class="lang-btn" onclick="enterApp('en')">ENGLISH</button>
         <button class="lang-btn" onclick="enterApp('ru')">РУССКИЙ</button>
         <button class="lang-btn" onclick="enterApp('ar')">عربي</button>
+        <button class="lang-btn" onclick="enterApp('ua')">УКРАЇНСЬКА</button>
+        <button class="lang-btn" onclick="enterApp('ro')">ROMÂNĂ</button>
+        <button class="lang-btn" onclick="enterApp('fr')">FRANÇAIS</button>
     </div>
 </div>
 
@@ -202,11 +211,17 @@
         tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL" },
         en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL" },
         ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ" },
-        ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" }
+        ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" },
+        
+        // YENİ EKLENEN DİLLER
+        ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ" },
+        ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL" },
+        fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL" }
     };
+    
     let currentLang = 'tr';
 
-    // --- VEXES ULTIMATE DATA (FROM USER TEXT LIST) ---
+    // --- VEXES ULTIMATE DATA (FROM TEXT FILE) ---
     const vexesData = [
         {code: "M101", name: "CHANEL - BLEU DE CHANEL", family: "WOODY AROMATIC"},
         {code: "M102", name: "PACO RABANNE INVICTUS", family: "FRESH MARINE"},
