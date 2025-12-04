@@ -373,8 +373,8 @@
         }
 
         .original-thumb {
-            width: 40px;
-            height: 60px;
+            width: 30px;
+            height: 50px;
             object-fit: contain;
             margin-bottom: 5px;
             border: 1px solid #eee;
@@ -725,12 +725,11 @@
                         </div>
                         <div class="vs">vs</div>
                         <div class="side">
-                            <div class="side-label">${t.orig}</div>
-                            <img src="${imagePath}" class="original-thumb" onerror="this.onerror=null;this.src='${placeholderPath}';" alt="Original">
-                            <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
-                                <span>👁</span> ${t.btn}
-                            </a>
-                        </div>
+                    <div class="side-label">${t.orig}</div>
+                    <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                        <span>👁</span> ${t.btn}
+                    </a>
+                </div>        </div>
                     </div>
                 </div>
             `;
