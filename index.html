@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
     <title>VEXES GLOBAL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap"
+        rel="stylesheet">
     <style>
         /* --- THEME VARIABLES --- */
         :root {
@@ -18,53 +20,98 @@
             --radius: 12px;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             background-color: var(--bg-body);
             font-family: 'Jost', sans-serif;
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex; justify-content: center;
+            display: flex;
+            justify-content: center;
             overflow-x: hidden;
         }
 
         /* --- SPLASH SCREEN --- */
         #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             transition: opacity 0.6s ease-out;
         }
+
         .splash-logo {
-            font-family: 'Tenor Sans', sans-serif; font-size: 3.5rem; color: #000;
-            letter-spacing: -1px; margin-bottom: 10px;
+            font-family: 'Tenor Sans', sans-serif;
+            font-size: 3.5rem;
+            color: #000;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
         }
+
         .splash-sub {
-            font-size: 0.8rem; letter-spacing: 4px; color: #999; text-transform: uppercase; margin-bottom: 40px;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 40px;
         }
-        
+
         .lang-grid {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 320px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 320px;
         }
 
         .lang-btn {
-            background: transparent; border: 1px solid #eee; color: #555;
-            padding: 12px 0; width: 100px; /* Sabit genişlik */
-            font-family: 'Jost', sans-serif; letter-spacing: 1px; font-weight: 500; font-size: 0.8rem;
-            cursor: pointer; transition: all 0.3s; border-radius: 8px;
+            background: transparent;
+            border: 1px solid #eee;
+            color: #555;
+            padding: 12px 0;
+            width: 100px;
+            /* Sabit genişlik */
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
             text-transform: uppercase;
         }
-        .lang-btn:hover { border-color: #000; color: #000; background: #fafafa; }
+
+        .lang-btn:hover {
+            border-color: #000;
+            color: #000;
+            background: #fafafa;
+        }
 
         /* --- APP CONTAINER --- */
         .app-container {
-            width: 100%; max-width: var(--app-width);
+            width: 100%;
+            max-width: var(--app-width);
             background-color: var(--bg-app);
-            min-height: 100vh; position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            display: none; flex-direction: column; opacity: 0; transition: opacity 0.8s ease;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
         /* --- HEADER --- */
@@ -72,354 +119,545 @@
             padding: 40px 20px 15px 20px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             border-bottom: 1px solid #f0f0f0;
-            display: flex; flex-direction: column; align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .brand-logo {
-            font-family: 'Tenor Sans', sans-serif; font-size: 2.5rem;
-            color: var(--accent-color); margin-bottom: 5px; text-decoration: none;
+            font-family: 'Tenor Sans', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            text-decoration: none;
         }
+
         .brand-caption {
-            font-size: 0.7rem; letter-spacing: 2px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 20px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .lang-switch-small {
-            position: absolute; top: 20px; right: 20px;
-            font-size: 0.75rem; color: #999; cursor: pointer; font-weight: 500;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: #999;
+            cursor: pointer;
+            font-weight: 500;
         }
-        [dir="rtl"] .lang-switch-small { right: auto; left: 20px; }
+
+        [dir="rtl"] .lang-switch-small {
+            right: auto;
+            left: 20px;
+        }
 
         /* SEARCH INPUT */
-        .search-box { width: 100%; position: relative; margin-bottom: 10px; }
-        .search-input {
-            width: 100%; background: #f5f5f7; border: none;
-            padding: 16px 20px; padding-left: 48px; border-radius: 12px;
-            font-family: 'Jost', sans-serif; font-size: 1.05rem; color: #1d1d1f;
-            outline: none; transition: 0.3s;
+        .search-box {
+            width: 100%;
+            position: relative;
+            margin-bottom: 10px;
         }
-        .search-input:focus { background: #fff; box-shadow: 0 0 0 2px #000; }
-        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.4; font-size: 1.2rem; }
-        [dir="rtl"] .search-input { padding-left: 20px; padding-right: 48px; }
-        [dir="rtl"] .search-icon { left: auto; right: 16px; }
+
+        .search-input {
+            width: 100%;
+            background: #f5f5f7;
+            border: none;
+            padding: 16px 20px;
+            padding-left: 48px;
+            border-radius: 12px;
+            font-family: 'Jost', sans-serif;
+            font-size: 1.05rem;
+            color: #1d1d1f;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            background: #fff;
+            box-shadow: 0 0 0 2px #000;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.4;
+            font-size: 1.2rem;
+        }
+
+        [dir="rtl"] .search-input {
+            padding-left: 20px;
+            padding-right: 48px;
+        }
+
+        [dir="rtl"] .search-icon {
+            left: auto;
+            right: 16px;
+        }
 
         /* --- CONTENT LIST --- */
-        .content-area { padding: 15px 20px; flex: 1; }
+        .content-area {
+            padding: 15px 20px;
+            flex: 1;
+        }
 
         .card {
-            background: #fff; border-bottom: 1px solid #f0f0f0;
-            padding: 20px 5px; cursor: pointer; transition: background 0.2s;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 20px 5px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .card:hover { background-color: #fafafa; }
-        .card:last-child { border-bottom: none; }
-        
-        .card-main { display: flex; justify-content: space-between; align-items: center; }
-        
+
+        .card:hover {
+            background-color: #fafafa;
+        }
+
+        .card:last-child {
+            border-bottom: none;
+        }
+
+        .card-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .code-pill {
-            background: #000; color: #fff; font-family: 'Jost', sans-serif; font-weight: 500;
-            font-size: 0.9rem; padding: 4px 10px; border-radius: 6px; min-width: 65px; text-align: center;
+            background: #000;
+            color: #fff;
+            font-family: 'Jost', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            min-width: 65px;
+            text-align: center;
             margin-right: 15px;
         }
-        [dir="rtl"] .code-pill { margin-right: 0; margin-left: 15px; }
 
-        .info-col { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .family-text { font-size: 0.65rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-        .perfume-name { font-size: 1rem; color: #1d1d1f; font-weight: 400; text-transform: uppercase; line-height: 1.3; }
+        [dir="rtl"] .code-pill {
+            margin-right: 0;
+            margin-left: 15px;
+        }
 
-        .arrow { color: #d2d2d7; font-size: 0.8rem; transition: transform 0.3s; }
-        .card.active .arrow { transform: rotate(180deg); color: #000; }
+        .info-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .family-text {
+            font-size: 0.65rem;
+            color: #86868b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .perfume-name {
+            font-size: 1rem;
+            color: #1d1d1f;
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+
+        .arrow {
+            color: #d2d2d7;
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .card.active .arrow {
+            transform: rotate(180deg);
+            color: #000;
+        }
 
         /* Detaylar */
         .details-panel {
-            max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
         }
-        .card.active .details-panel { max-height: 200px; opacity: 1; padding-top: 20px; }
+
+        .card.active .details-panel {
+            max-height: 200px;
+            opacity: 1;
+            padding-top: 20px;
+        }
 
         .compare-box {
-            background: #f9f9f9; border-radius: 12px; padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border: 1px solid #eee;
         }
 
-        .side { display: flex; flex-direction: column; align-items: center; width: 40%; }
-        .side-label { font-size: 0.6rem; color: #999; letter-spacing: 1px; margin-bottom: 5px; }
+        .side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+        }
+
+        .side-label {
+            font-size: 0.6rem;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
 
         .bottle-icon {
-            width: 30px; height: 50px; border: 1.5px solid #333; border-radius: 2px;
-            position: relative; display: flex; align-items: center; justify-content: center;
+            width: 30px;
+            height: 50px;
+            border: 1.5px solid #333;
+            border-radius: 2px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .bottle-icon::before { content: ''; width: 12px; height: 6px; background: #333; position: absolute; top: -8px; }
-        .bottle-v { font-size: 0.8rem; font-weight: bold; }
 
-        .vs { font-family: 'Tenor Sans', sans-serif; font-style: italic; color: #ccc; font-size: 1.2rem; }
+        .bottle-icon::before {
+            content: '';
+            width: 12px;
+            height: 6px;
+            background: #333;
+            position: absolute;
+            top: -8px;
+        }
+
+        .bottle-v {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .vs {
+            font-family: 'Tenor Sans', sans-serif;
+            font-style: italic;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
 
         .view-btn {
-            text-decoration: none; color: #fff; background: #000;
-            padding: 8px 16px; font-size: 0.75rem; border-radius: 20px;
-            transition: 0.3s; display: flex; align-items: center; gap: 5px;
+            text-decoration: none;
+            color: #fff;
+            background: #000;
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        .view-btn:hover { background: #333; transform: scale(1.05); }
 
-        .msg-box { text-align: center; padding-top: 60px; color: #bbb; }
-        .msg-icon { font-size: 2rem; margin-bottom: 10px; opacity: 0.5; }
-        .no-results { text-align: center; color: #999; margin-top: 20px; }
+        .view-btn:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
 
+        .msg-box {
+            text-align: center;
+            padding-top: 60px;
+            color: #bbb;
+        }
+
+        .msg-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #999;
+            margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
 
-<div id="splash-screen">
-    <div class="splash-logo">veXes</div>
-    <div class="splash-sub">INTELLIGENT LIBRARY</div>
-    
-    <div class="lang-grid">
-        <button class="lang-btn" onclick="enterApp('tr')">TÜRKÇE</button>
-        <button class="lang-btn" onclick="enterApp('en')">ENGLISH</button>
-        <button class="lang-btn" onclick="enterApp('ru')">РУССКИЙ</button>
-        <button class="lang-btn" onclick="enterApp('ar')">عربي</button>
-        <button class="lang-btn" onclick="enterApp('ua')">УКРАЇНСЬКА</button>
-        <button class="lang-btn" onclick="enterApp('ro')">ROMÂNĂ</button>
-        <button class="lang-btn" onclick="enterApp('fr')">FRANÇAIS</button>
-    </div>
-</div>
+    <div id="splash-screen">
+        <div class="splash-logo">veXes</div>
+        <div class="splash-sub">INTELLIGENT LIBRARY</div>
 
-<div class="app-container" id="app-container">
-    <div class="header">
-        <div class="lang-switch-small" onclick="location.reload()">Change Lang</div>
-        <div class="brand-logo">veXes</div>
-        <div class="brand-caption">SMART SEARCH</div>
-
-        <div class="search-box">
-            <span class="search-icon">⚲</span>
-            <input type="text" class="search-input" id="searchInput" placeholder="" autocomplete="off">
+        <div class="lang-grid">
+            <button class="lang-btn" onclick="enterApp('tr')">TÜRKÇE</button>
+            <button class="lang-btn" onclick="enterApp('en')">ENGLISH</button>
+            <button class="lang-btn" onclick="enterApp('ru')">РУССКИЙ</button>
+            <button class="lang-btn" onclick="enterApp('ar')">عربي</button>
+            <button class="lang-btn" onclick="enterApp('ua')">УКРАЇНСЬКА</button>
+            <button class="lang-btn" onclick="enterApp('ro')">ROMÂNĂ</button>
+            <button class="lang-btn" onclick="enterApp('fr')">FRANÇAIS</button>
         </div>
     </div>
 
-    <div class="content-area" id="resultsArea">
-        <div class="msg-box">
-            <div class="msg-icon">✦</div>
-            <div id="start-text">...</div>
+    <div class="app-container" id="app-container">
+        <div class="header">
+            <div class="lang-switch-small" onclick="location.reload()">Change Lang</div>
+            <div class="brand-logo">veXes</div>
+            <div class="brand-caption">SMART SEARCH</div>
+
+            <div class="search-box">
+                <span class="search-icon">⚲</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="content-area" id="resultsArea">
+            <div class="msg-box">
+                <div class="msg-icon">✦</div>
+                <div id="start-text">...</div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // --- CONFIG ---
-    const translations = {
-        tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL" },
-        en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL" },
-        ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ" },
-        ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" },
-        
-        // YENİ EKLENEN DİLLER
-        ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ" },
-        ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL" },
-        fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL" }
-    };
-    
-    let currentLang = 'tr';
+    <script>
+        // --- CONFIG ---
+        const translations = {
+            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL" },
+            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL" },
+            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ" },
+            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" },
 
-    // --- VEXES ULTIMATE DATA (FROM TEXT FILE) ---
-    const vexesData = [
-        {code: "M101", name: "CHANEL - BLEU DE CHANEL", family: "WOODY AROMATIC"},
-        {code: "M102", name: "PACO RABANNE INVICTUS", family: "FRESH MARINE"},
-        {code: "M103", name: "LACOSTE - L.12.12 BLANC", family: "WOODY AROMATIC"},
-        {code: "M104", name: "CREED - AVENTUS", family: "FRUITY WOODY"},
-        {code: "M105", name: "C. DIOR - SAUVAGE", family: "WOODY AMBERY"},
-        {code: "M107", name: "ANTONIO BANDERAS - BLUE SEDUCTION MAN", family: "AROMATIC AQUATIC"},
-        {code: "M108", name: "ISSEY MIYAKE -L'EAU D'ISSEY POUR HOMME", family: "AQUATIC SPICY"},
-        {code: "M109", name: "NASOMATTO - BLACK AFGANO", family: "WOODY LEATHERY"},
-        {code: "M110", name: "ARMANI - ACQUA DI GIO POUR HOMME", family: "AROMATIC AQUATIC"},
-        {code: "M111", name: "CHANEL - ALLURE HOMME SPORT", family: "MARINE FRESH"},
-        {code: "M112", name: "CHANEL - EGOIST PLATINUM", family: "AROMATIC WOODY"},
-        {code: "M113", name: "C. DIOR - FAHRENHEIT", family: "CHYPRE FRESH"},
-        {code: "M114", name: "PACO RABANNE - ONE MILLION", family: "WOODY SPICY"},
-        {code: "M115", name: "GIVENCHY - BLUE LABEL", family: "MARINE SPICY"},
-        {code: "M116", name: "DOLCE GABBANA - LIGHT BLUE POUR HOMME", family: "AROMATIC FRESH"},
-        {code: "M117", name: "DOLCE GABBANA - THE ONE FOR MEN", family: "ORIENTAL WOODY"},
-        {code: "M118", name: "CARTIER - DECLARATION", family: "DRY WOODS"},
-        {code: "M119", name: "ARMAF - CLUB DE NUIT INTENSE", family: "CITRUS WOODY"},
-        {code: "M120", name: "PACO RABANNE - PHANTOM", family: "AROMATIC FOUGERE"},
-        {code: "M121", name: "VERSACE - EROS", family: "AROMATIC FOUGERE"},
-        {code: "M122", name: "CAROLINA HERRERA - BAD BOY", family: "AMBER SPICY"},
-        {code: "M123", name: "PACO RABANNE-INVICTUS INTENSE", family: "WOODY"},
-        {code: "M124", name: "KENZO-L'EAU PAR KENZO MEN", family: "FLORAL AQUATIC"},
-        {code: "M125", name: "ARMANI-STRONGER WITH YOU", family: "WOODY ORIENTAL-LEATHERY"},
-        {code: "M126", name: "BALDESSARINI-BALISTIC AMBRE", family: "ORIENTAL WOODY"},
-        {code: "M127", name: "PACO RABANNE-ULTRAVIOLET HOMME", family: "WOODY ORIENTAL"},
-        {code: "M128", name: "VERSACE-VERSACE MEN EAU FRAICHE", family: "LEATHER"},
-        {code: "W301", name: "LANVIN - ECLAT D'ARPEGE", family: "FLORAL CITRUS"},
-        {code: "W302", name: "VERSACE - BRIGHT CRYSTAL", family: "FLORAL AQUATIC"},
-        {code: "W303", name: "VICTORIA'S SECRET - BOMBSHELL", family: "FRUITY FLORAL"},
-        {code: "W306", name: "DOLCE GABBANA - 3 L'IMPERATRICE", family: "FLORAL AQUATIC"},
-        {code: "W307", name: "BYREDO - BAL D'AFRIQUE", family: "CITRUS WOODY"},
-        {code: "W308", name: "LACOSTE - POUR FEMME", family: "FLORAL FLORAL"},
-        {code: "W309", name: "YVES SAINT LAURENT - BLACK OPIUM", family: "FLORAL SPICY"},
-        {code: "W310", name: "CHANEL - COCO MADEMOISELLE", family: "WOODY ORIENTAL"},
-        {code: "W311", name: "CHANEL - CHANCE EAU FRAICHE", family: "CHYPRE FRUITY"},
-        {code: "W312", name: "TRUSSARDI - DONNA 2011", family: "ORIENTAL FLORAL"},
-        {code: "W313", name: "ARMANI - MY WAY", family: "FLORAL"},
-        {code: "W314", name: "BY KILIAN - GOOD GIRL GONE BAD", family: "FLORAL"},
-        {code: "W315", name: "CAROLINA HERRERA - GOOD GIRL", family: "FRUITY AMBERY"},
-        {code: "W316", name: "DOLCE GABBANA - LIGHT BLUE", family: "CITRUS FOUGERE"},
-        {code: "W317", name: "CHANEL - EAU TENDRE", family: "FLORAL FRUITY"},
-        {code: "W318", name: "GIVENCHY - ANGE & DEMON LE SECRET", family: "CITRUS AMBERY"},
-        {code: "W319", name: "MONTALE - ROSES MUSK", family: "ORIENTAL MUSKY"},
-        {code: "W320", name: "LANCOME - LA VIE EST BELLE", family: "FLORAL GOURMAND"},
-        {code: "W321", name: "CHRISTIAN DIOR - J'ADORE", family: "FLORAL FRUITY"},
-        {code: "W322", name: "LANCOME - IDOLE LE PARFUM", family: "FRUITY CHYPRE"},
-        {code: "W323", name: "PARFUMS DE MARLY - DELINA", family: "CHYPRE"},
-        {code: "W324", name: "LACOSTE - .12.12 POUR ELLE SPARKLING", family: "FOUGERE WOODY"},
-        {code: "W325", name: "ARMANI - SI", family: "CHYPRE"},
-        {code: "W326", name: "YVES SAINT LAURENT - LIBRE WOMEN", family: "FLORAL SWEETY"},
-        {code: "W327", name: "PACO RABANNE - FAME", family: "AMBERY WOODY"},
-        {code: "W328", name: "LANVIN - MODERN PRINCESS EAU SENSUELLE", family: "WOODY FLORAL"},
-        {code: "W329", name: "CHANEL - CHANCE", family: "CHYPRE FRUITY"},
-        {code: "W330", name: "DOLCE&GABBANA - THE ONE", family: "ORIENTAL FLORAL"},
-        {code: "W331", name: "ZADIC VOLTAIRE - THIS IS HER", family: "ORIENTAL VANILLA"},
-        {code: "W332", name: "CALVIN KLEIN-EUPHORIA", family: "FLORAL ORIENTAL"},
-        {code: "W333", name: "VERSACE - VERSENSE", family: "WOODY LORAL-MUSK"},
-        {code: "U601", name: "ESCENTRIC MOLECULES - ESCENTRIC 02", family: "ORIENTAL FLORAL"},
-        {code: "U602", name: "SOSPIRA - ERBA PURA", family: "ORIENTAL AMBER"},
-        {code: "U603", name: "TIZIANA TERENZI - KIRKE", family: "FLORAL FRUITY"},
-        {code: "U604", name: "EX NIHILO - FLEUR NARCOTIQUE", family: "FLORAL"},
-        {code: "U605", name: "TOM FORD - LOST CHERRY", family: "FRUITY"},
-        {code: "U606", name: "MAISON FRANCIS KURKDJIAN - BACCARAT ROUGE 540", family: "ORIENTAL FLOWER"},
-        {code: "U607", name: "ESCENTRIC MOLECULES - ESCENTRIC 01", family: "WOODY MUSK"},
-        {code: "U608", name: "MARC-ANTOINE BARROIS - GANYMEDE", family: "AMBERY WOODY"},
-        {code: "U609", name: "ZIELINSKI & ROZEN - BLACK PEPPER & AMBER", family: "AMBER CITRUS"},
-        {code: "U610", name: "ZARKO PARFUME - PINK MOLECULE 090.09", family: "FLORAL FRUITY"},
-        {code: "U611", name: "MONTALE - INTENSE CAFE", family: "FLORAL AMBERY"},
-        {code: "U612", name: "TOM FORD - TOBACCO VANILLE", family: "SPICY BALSAMIC"},
-        {code: "U613", name: "TOM FORD - BITTER PEACH", family: "AMBER VANILLA"},
-        {code: "U614", name: "FRANCK BOCLET - COCAINE", family: "LEATHERY AMBER"},
-        {code: "U615", name: "BY KILIAN - I DON'T NEED A PRINCE BY MY SIDE TO BE A PRINCESS", family: "FLORAL BALSAMIC"},
-        {code: "U616", name: "ATTAR COLLECTION - MUSK KASHMIR", family: "MUSKY POWDERY"},
-        {code: "U617", name: "BYREDO - MARIJUANA", family: "AROMATIC HERBAL"},
-        {code: "U618", name: "TIZIANA TERENZI -ANDROMEDA", family: "FRUITY WOODY"},
-        {code: "U619", name: "INITIO PARFUMS PRIVES - OUD FOR GREATNESS", family: "ORIENTAL"},
-        {code: "U620", name: "XERJOFF - 1861 NAXOS", family: "AROMATIC AMBER"},
-        {code: "U621", name: "LE LABO - SANTAL 33", family: "WOODY LEATHERY"},
-        {code: "U622", name: "ESCENTRIC MOLECULES - MOLECULE 01 MANDARINE", family: "CITRUS MANDARINE"},
-        {code: "U623", name: "BY KILIAN - ANGEL'S SHARE", family: "SPICY SWEET"},
-        {code: "U624", name: "PARFUMS DE MARLY - LAYTON", family: "AMBERY FLORAL"},
-        {code: "U625", name: "XERJOFF - ACCENTO", family: "AMBERY FLORAL"},
-        {code: "U626", name: "CREED - ROYAL OUD", family: "ORIENTAL FOUGERE"},
-        {code: "U627", name: "TOM FORD - OUD WOOD", family: "ORIENTAL WOODY"},
-        {code: "U628", name: "ATTAR COLLECTION - HAYATI", family: "FRUITY GOURMAND"},
-        {code: "U629", name: "ORTO - MEGAMARE", family: "WOODY MARINE"},
-        {code: "U630", name: "SOSPIRO-OPERA", family: "ORIENTAL FLORAL"}
-    ];
+            // YENİ EKLENEN DİLLER
+            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ" },
+            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL" },
+            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL" }
+        };
 
-    // --- HELPER FUNCTIONS ---
-    function cleanString(str) { return str.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); }
+        let currentLang = 'tr';
 
-    // --- FUZZY SEARCH ALGORITHM (Levenshtein Distance) ---
-    function levenshtein(a, b) {
-        const matrix = [];
-        for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-        for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-        for (let i = 1; i <= b.length; i++) {
-            for (let j = 1; j <= a.length; j++) {
-                if (b.charAt(i - 1) == a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
-                else matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-            }
-        }
-        return matrix[b.length][a.length];
-    }
+        // --- VEXES ULTIMATE DATA (FROM TEXT FILE) ---
+        const vexesData = [
+            { code: "M101", name: "CHANEL - BLEU DE CHANEL", family: "WOODY AROMATIC" },
+            { code: "M102", name: "PACO RABANNE INVICTUS", family: "FRESH MARINE" },
+            { code: "M103", name: "LACOSTE - L.12.12 BLANC", family: "WOODY AROMATIC" },
+            { code: "M104", name: "CREED - AVENTUS", family: "FRUITY WOODY" },
+            { code: "M105", name: "C. DIOR - SAUVAGE", family: "WOODY AMBERY" },
+            { code: "M107", name: "ANTONIO BANDERAS - BLUE SEDUCTION MAN", family: "AROMATIC AQUATIC" },
+            { code: "M108", name: "ISSEY MIYAKE -L'EAU D'ISSEY POUR HOMME", family: "AQUATIC SPICY" },
+            { code: "M109", name: "NASOMATTO - BLACK AFGANO", family: "WOODY LEATHERY" },
+            { code: "M110", name: "ARMANI - ACQUA DI GIO POUR HOMME", family: "AROMATIC AQUATIC" },
+            { code: "M111", name: "CHANEL - ALLURE HOMME SPORT", family: "MARINE FRESH" },
+            { code: "M112", name: "CHANEL - EGOIST PLATINUM", family: "AROMATIC WOODY" },
+            { code: "M113", name: "C. DIOR - FAHRENHEIT", family: "CHYPRE FRESH" },
+            { code: "M114", name: "PACO RABANNE - ONE MILLION", family: "WOODY SPICY" },
+            { code: "M115", name: "GIVENCHY - BLUE LABEL", family: "MARINE SPICY" },
+            { code: "M116", name: "DOLCE GABBANA - LIGHT BLUE POUR HOMME", family: "AROMATIC FRESH" },
+            { code: "M117", name: "DOLCE GABBANA - THE ONE FOR MEN", family: "ORIENTAL WOODY" },
+            { code: "M118", name: "CARTIER - DECLARATION", family: "DRY WOODS" },
+            { code: "M119", name: "ARMAF - CLUB DE NUIT INTENSE", family: "CITRUS WOODY" },
+            { code: "M120", name: "PACO RABANNE - PHANTOM", family: "AROMATIC FOUGERE" },
+            { code: "M121", name: "VERSACE - EROS", family: "AROMATIC FOUGERE" },
+            { code: "M122", name: "CAROLINA HERRERA - BAD BOY", family: "AMBER SPICY" },
+            { code: "M123", name: "PACO RABANNE-INVICTUS INTENSE", family: "WOODY" },
+            { code: "M124", name: "KENZO-L'EAU PAR KENZO MEN", family: "FLORAL AQUATIC" },
+            { code: "M125", name: "ARMANI-STRONGER WITH YOU", family: "WOODY ORIENTAL-LEATHERY" },
+            { code: "M126", name: "BALDESSARINI-BALISTIC AMBRE", family: "ORIENTAL WOODY" },
+            { code: "M127", name: "PACO RABANNE-ULTRAVIOLET HOMME", family: "WOODY ORIENTAL" },
+            { code: "M128", name: "VERSACE-VERSACE MEN EAU FRAICHE", family: "LEATHER" },
+            { code: "W301", name: "LANVIN - ECLAT D'ARPEGE", family: "FLORAL CITRUS" },
+            { code: "W302", name: "VERSACE - BRIGHT CRYSTAL", family: "FLORAL AQUATIC" },
+            { code: "W303", name: "VICTORIA'S SECRET - BOMBSHELL", family: "FRUITY FLORAL" },
+            { code: "W306", name: "DOLCE GABBANA - 3 L'IMPERATRICE", family: "FLORAL AQUATIC" },
+            { code: "W307", name: "BYREDO - BAL D'AFRIQUE", family: "CITRUS WOODY" },
+            { code: "W308", name: "LACOSTE - POUR FEMME", family: "FLORAL FLORAL" },
+            { code: "W309", name: "YVES SAINT LAURENT - BLACK OPIUM", family: "FLORAL SPICY" },
+            { code: "W310", name: "CHANEL - COCO MADEMOISELLE", family: "WOODY ORIENTAL" },
+            { code: "W311", name: "CHANEL - CHANCE EAU FRAICHE", family: "CHYPRE FRUITY" },
+            { code: "W312", name: "TRUSSARDI - DONNA 2011", family: "ORIENTAL FLORAL" },
+            { code: "W313", name: "ARMANI - MY WAY", family: "FLORAL" },
+            { code: "W314", name: "BY KILIAN - GOOD GIRL GONE BAD", family: "FLORAL" },
+            { code: "W315", name: "CAROLINA HERRERA - GOOD GIRL", family: "FRUITY AMBERY" },
+            { code: "W316", name: "DOLCE GABBANA - LIGHT BLUE", family: "CITRUS FOUGERE" },
+            { code: "W317", name: "CHANEL - EAU TENDRE", family: "FLORAL FRUITY" },
+            { code: "W318", name: "GIVENCHY - ANGE & DEMON LE SECRET", family: "CITRUS AMBERY" },
+            { code: "W319", name: "MONTALE - ROSES MUSK", family: "ORIENTAL MUSKY" },
+            { code: "W320", name: "LANCOME - LA VIE EST BELLE", family: "FLORAL GOURMAND" },
+            { code: "W321", name: "CHRISTIAN DIOR - J'ADORE", family: "FLORAL FRUITY" },
+            { code: "W322", name: "LANCOME - IDOLE LE PARFUM", family: "FRUITY CHYPRE" },
+            { code: "W323", name: "PARFUMS DE MARLY - DELINA", family: "CHYPRE" },
+            { code: "W324", name: "LACOSTE - .12.12 POUR ELLE SPARKLING", family: "FOUGERE WOODY" },
+            { code: "W325", name: "ARMANI - SI", family: "CHYPRE" },
+            { code: "W326", name: "YVES SAINT LAURENT - LIBRE WOMEN", family: "FLORAL SWEETY" },
+            { code: "W327", name: "PACO RABANNE - FAME", family: "AMBERY WOODY" },
+            { code: "W328", name: "LANVIN - MODERN PRINCESS EAU SENSUELLE", family: "WOODY FLORAL" },
+            { code: "W329", name: "CHANEL - CHANCE", family: "CHYPRE FRUITY" },
+            { code: "W330", name: "DOLCE&GABBANA - THE ONE", family: "ORIENTAL FLORAL" },
+            { code: "W331", name: "ZADIC VOLTAIRE - THIS IS HER", family: "ORIENTAL VANILLA" },
+            { code: "W332", name: "CALVIN KLEIN-EUPHORIA", family: "FLORAL ORIENTAL" },
+            { code: "W333", name: "VERSACE - VERSENSE", family: "WOODY LORAL-MUSK" },
+            { code: "U601", name: "ESCENTRIC MOLECULES - ESCENTRIC 02", family: "ORIENTAL FLORAL" },
+            { code: "U602", name: "SOSPIRA - ERBA PURA", family: "ORIENTAL AMBER" },
+            { code: "U603", name: "TIZIANA TERENZI - KIRKE", family: "FLORAL FRUITY" },
+            { code: "U604", name: "EX NIHILO - FLEUR NARCOTIQUE", family: "FLORAL" },
+            { code: "U605", name: "TOM FORD - LOST CHERRY", family: "FRUITY" },
+            { code: "U606", name: "MAISON FRANCIS KURKDJIAN - BACCARAT ROUGE 540", family: "ORIENTAL FLOWER" },
+            { code: "U607", name: "ESCENTRIC MOLECULES - ESCENTRIC 01", family: "WOODY MUSK" },
+            { code: "U608", name: "MARC-ANTOINE BARROIS - GANYMEDE", family: "AMBERY WOODY" },
+            { code: "U609", name: "ZIELINSKI & ROZEN - BLACK PEPPER & AMBER", family: "AMBER CITRUS" },
+            { code: "U610", name: "ZARKO PARFUME - PINK MOLECULE 090.09", family: "FLORAL FRUITY" },
+            { code: "U611", name: "MONTALE - INTENSE CAFE", family: "FLORAL AMBERY" },
+            { code: "U612", name: "TOM FORD - TOBACCO VANILLE", family: "SPICY BALSAMIC" },
+            { code: "U613", name: "TOM FORD - BITTER PEACH", family: "AMBER VANILLA" },
+            { code: "U614", name: "FRANCK BOCLET - COCAINE", family: "LEATHERY AMBER" },
+            { code: "U615", name: "BY KILIAN - I DON'T NEED A PRINCE BY MY SIDE TO BE A PRINCESS", family: "FLORAL BALSAMIC" },
+            { code: "U616", name: "ATTAR COLLECTION - MUSK KASHMIR", family: "MUSKY POWDERY" },
+            { code: "U617", name: "BYREDO - MARIJUANA", family: "AROMATIC HERBAL" },
+            { code: "U618", name: "TIZIANA TERENZI -ANDROMEDA", family: "FRUITY WOODY" },
+            { code: "U619", name: "INITIO PARFUMS PRIVES - OUD FOR GREATNESS", family: "ORIENTAL" },
+            { code: "U620", name: "XERJOFF - 1861 NAXOS", family: "AROMATIC AMBER" },
+            { code: "U621", name: "LE LABO - SANTAL 33", family: "WOODY LEATHERY" },
+            { code: "U622", name: "ESCENTRIC MOLECULES - MOLECULE 01 MANDARINE", family: "CITRUS MANDARINE" },
+            { code: "U623", name: "BY KILIAN - ANGEL'S SHARE", family: "SPICY SWEET" },
+            { code: "U624", name: "PARFUMS DE MARLY - LAYTON", family: "AMBERY FLORAL" },
+            { code: "U625", name: "XERJOFF - ACCENTO", family: "AMBERY FLORAL" },
+            { code: "U626", name: "CREED - ROYAL OUD", family: "ORIENTAL FOUGERE" },
+            { code: "U627", name: "TOM FORD - OUD WOOD", family: "ORIENTAL WOODY" },
+            { code: "U628", name: "ATTAR COLLECTION - HAYATI", family: "FRUITY GOURMAND" },
+            { code: "U629", name: "ORTO - MEGAMARE", family: "WOODY MARINE" },
+            { code: "U630", name: "SOSPIRO-OPERA", family: "ORIENTAL FLORAL" },
+            { code: "U631", name: "BOIS IMPERIAL ESSENTIAL PARFUMS UNISEX", family: "WOODY-SPICY" },
+            { code: "U632", name: "THOMAS KOSMALA-APRES L AMOUR NO 4", family: "WOODY-AMBERY" },
+            { code: "U633", name: "ESCENTRIC 02 ESCENTRIC MOLECULES", family: "WOODY-AMBERY" },
+            { code: "U634", name: "CHRISTIAN RICHARD-WHITE CHOCOLA", family: "ORIENTAL-GOURMAND" },
+            { code: "U635", name: "VILHELM PARFUMERIE-MANGO SKIN", family: "FRUITY-FLORAL" },
+            { code: "M129", name: "HERMES-TERRE D HERMES TYPE", family: "FLORAL" },
+            { code: "M130", name: "HUGO BOSS-BOSS BOTTLED TYPE", family: "WOODY-ORIENTAL" },
+            { code: "M131", name: "CAROLINA HERRERA-212 MEN TYPE", family: "WOODY-MUSKY" },
+            { code: "M132", name: "LACOSTE-ESSENTIAL TYPE", family: "WOODY-AROMATIC" },
+            { code: "W334", name: "BURBERRY-HER TYPE", family: "FRUITY-FLORAL" },
+            { code: "W335", name: "ARMAND BASI-IN RED TYPE", family: "CITRUS-WOODY" },
+            { code: "W336", name: "DIOR-MISS DIOR BLOOMING BOUQUET TYPE", family: "FLORAL-MUSKY-AMBERY" },
+            { code: "W337", name: "FRAGRANCE COMPANY HFC FOR WOMEN", family: "ORIENTAL-MUSKY" },
+            { code: "W338", name: "KAJAL-DAHAB", family: "FRUITY-FLORIENTAL" }
+        ];
 
-    function enterApp(lang) {
-        currentLang = lang;
-        if(lang === 'ar') document.body.dir = 'rtl'; else document.body.dir = 'ltr';
-        
-        const t = translations[lang];
-        document.getElementById('searchInput').placeholder = t.placeholder;
-        document.getElementById('start-text').innerText = t.start;
+        // --- HELPER FUNCTIONS ---
+        function cleanString(str) { return str.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); }
 
-        const splash = document.getElementById('splash-screen');
-        const app = document.getElementById('app-container');
-        
-        splash.style.opacity = '0';
-        splash.style.pointerEvents = 'none';
-        
-        setTimeout(() => {
-            splash.style.display = 'none';
-            app.style.display = 'flex';
-            setTimeout(() => { app.style.opacity = '1'; document.getElementById('searchInput').focus(); }, 50);
-        }, 600);
-    }
-
-    function toggleCard(element) {
-        if (element.classList.contains('active')) {
-            element.classList.remove('active');
-        } else {
-            document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-        }
-    }
-
-    function performSearch() {
-        const query = document.getElementById('searchInput').value.trim();
-        const resultsArea = document.getElementById('resultsArea');
-        const t = translations[currentLang];
-
-        resultsArea.innerHTML = '';
-
-        if (!query) {
-            resultsArea.innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${t.start}</div></div>`;
-            return;
-        }
-
-        const cleanQuery = cleanString(query);
-        const queryUpper = query.toUpperCase();
-
-        // --- SCORING SYSTEM ---
-        let scoredResults = vexesData.map(item => {
-            let score = 0;
-            const itemCodeClean = cleanString(item.code);
-            const itemNameClean = cleanString(item.name);
-            
-            // 1. KOD EŞLEŞMESİ (En Yüksek)
-            if (itemCodeClean === cleanQuery) score = 100;
-            else if (itemCodeClean.includes(cleanQuery)) score = 80;
-
-            // 2. İSİM EŞLEŞMESİ
-            if (score < 80) {
-                if (itemNameClean === cleanQuery) score = 90;
-                else if (itemNameClean.includes(cleanQuery)) score = 70;
-                
-                // 3. FUZZY MATCH (Harf Hatası Toleransı)
-                else if (cleanQuery.length > 2) {
-                    const dist = levenshtein(cleanQuery, itemNameClean);
-                    const maxLen = Math.max(cleanQuery.length, itemNameClean.length);
-                    const similarity = 1 - (dist / maxLen);
-                    
-                    if (similarity > 0.5) score = 50 * similarity;
+        // --- FUZZY SEARCH ALGORITHM (Levenshtein Distance) ---
+        function levenshtein(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) == a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
+                    else matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
                 }
             }
-            return { ...item, score: score };
-        });
-
-        // Filtreleme
-        const filtered = scoredResults
-            .filter(item => item.score > 25)
-            .sort((a, b) => b.score - a.score);
-
-        if (filtered.length === 0) {
-            resultsArea.innerHTML = `<div class="msg-box">${t.empty}</div>`;
-            return;
+            return matrix[b.length][a.length];
         }
 
-        filtered.slice(0, 50).forEach(item => {
-            const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
-            
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.onclick = function() { toggleCard(this); };
-            
-            card.innerHTML = `
+        function enterApp(lang) {
+            currentLang = lang;
+            if (lang === 'ar') document.body.dir = 'rtl'; else document.body.dir = 'ltr';
+
+            const t = translations[lang];
+            document.getElementById('searchInput').placeholder = t.placeholder;
+            document.getElementById('start-text').innerText = t.start;
+
+            const splash = document.getElementById('splash-screen');
+            const app = document.getElementById('app-container');
+
+            splash.style.opacity = '0';
+            splash.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                splash.style.display = 'none';
+                app.style.display = 'flex';
+                setTimeout(() => { app.style.opacity = '1'; document.getElementById('searchInput').focus(); }, 50);
+            }, 600);
+        }
+
+        function toggleCard(element) {
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+            } else {
+                document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+                element.classList.add('active');
+            }
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            const resultsArea = document.getElementById('resultsArea');
+            const t = translations[currentLang];
+
+            resultsArea.innerHTML = '';
+
+            if (!query) {
+                resultsArea.innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${t.start}</div></div>`;
+                return;
+            }
+
+            const cleanQuery = cleanString(query);
+            const queryUpper = query.toUpperCase();
+
+            // --- SCORING SYSTEM ---
+            let scoredResults = vexesData.map(item => {
+                let score = 0;
+                const itemCodeClean = cleanString(item.code);
+                const itemNameClean = cleanString(item.name);
+
+                // 1. KOD EŞLEŞMESİ (En Yüksek)
+                if (itemCodeClean === cleanQuery) score = 100;
+                else if (itemCodeClean.includes(cleanQuery)) score = 80;
+
+                // 2. İSİM EŞLEŞMESİ
+                if (score < 80) {
+                    if (itemNameClean === cleanQuery) score = 90;
+                    else if (itemNameClean.includes(cleanQuery)) score = 70;
+
+                    // 3. FUZZY MATCH (Harf Hatası Toleransı)
+                    else if (cleanQuery.length > 2) {
+                        const dist = levenshtein(cleanQuery, itemNameClean);
+                        const maxLen = Math.max(cleanQuery.length, itemNameClean.length);
+                        const similarity = 1 - (dist / maxLen);
+
+                        if (similarity > 0.5) score = 50 * similarity;
+                    }
+                }
+                return { ...item, score: score };
+            });
+
+            // Filtreleme
+            const filtered = scoredResults
+                .filter(item => item.score > 25)
+                .sort((a, b) => b.score - a.score);
+
+            if (filtered.length === 0) {
+                resultsArea.innerHTML = `<div class="msg-box">${t.empty}</div>`;
+                return;
+            }
+
+            filtered.slice(0, 50).forEach(item => {
+                const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = function () { toggleCard(this); };
+
+                card.innerHTML = `
                 <div class="card-main">
                     <div style="display:flex; align-items:center; width:100%;">
                         <div class="code-pill">${item.code}</div>
@@ -447,13 +685,14 @@
                     </div>
                 </div>
             `;
-            resultsArea.appendChild(card);
-        });
-    }
+                resultsArea.appendChild(card);
+            });
+        }
 
-    document.getElementById('searchInput').addEventListener('input', performSearch);
+        document.getElementById('searchInput').addEventListener('input', performSearch);
 
-</script>
+    </script>
 
 </body>
+
 </html>
