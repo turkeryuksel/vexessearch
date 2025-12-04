@@ -425,6 +425,42 @@
             border-color: #bbb;
         }
 
+        .filter-buttons {
+            display: none;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .filter-buttons.active {
+            display: flex;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            color: #666;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #000;
+            color: #000;
+        }
+
+        .filter-btn.active {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
         .category-header {
             width: 100%;
             text-align: left;
@@ -469,7 +505,13 @@
         </div>
 
         <div class="view-all-container">
-            <button class="view-all-btn" id="viewAllBtn" onclick="showAll()">View All List</button>
+            <button class="view-all-btn" id="viewAllBtn" onclick="toggleViewAll()">View All List</button>
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" onclick="filterCategory('all')">TÜMÜ</button>
+                <button class="filter-btn" onclick="filterCategory('men')">ERKEK</button>
+                <button class="filter-btn" onclick="filterCategory('women')">KADIN</button>
+                <button class="filter-btn" onclick="filterCategory('unisex')">UNISEX</button>
+            </div>
         </div>
 
         <div class="content-area" id="resultsArea">
@@ -483,15 +525,15 @@
     <script>
         // --- CONFIG ---
         const translations = {
-            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL", viewAll: "TÜM LİSTEYİ GÖR", men: "ERKEK", women: "KADIN", unisex: "UNISEX" },
-            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL", viewAll: "VIEW FULL LIST", men: "MEN", women: "WOMEN", unisex: "UNISEX" },
-            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ПОКАЗАТЬ ВЕСЬ СПИСОК", men: "МУЖСКИЕ", women: "ЖЕНСКИЕ", unisex: "УНИСЕКС" },
-            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي", viewAll: "عرض القائمة الكاملة", men: "رجال", women: "نساء", unisex: "للجنسين" },
+            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL", viewAll: "TÜM LİSTEYİ GÖR", men: "ERKEK", women: "KADIN", unisex: "UNISEX", all: "TÜMÜ" },
+            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL", viewAll: "VIEW FULL LIST", men: "MEN", women: "WOMEN", unisex: "UNISEX", all: "ALL" },
+            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ПОКАЗАТЬ ВЕСЬ СПИСОК", men: "МУЖСКИЕ", women: "ЖЕНСКИЕ", unisex: "УНИСЕКС", all: "ВСЕ" },
+            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي", viewAll: "عرض القائمة الكاملة", men: "رجال", women: "نساء", unisex: "للجنسين", all: "الكل" },
 
             // YENİ EKLENEN DİLLER
-            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ", viewAll: "ПЕРЕГЛЯНУТИ ВЕСЬ СПИСОК", men: "ЧОЛОВІЧІ", women: "ЖІНОЧІ", unisex: "УНІСЕКС" },
-            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL", viewAll: "VEZI LISTA COMPLETĂ", men: "BĂRBAȚI", women: "FEMEI", unisex: "UNISEX" },
-            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL", viewAll: "VOIR TOUTE LA LISTE", men: "HOMMES", women: "FEMMES", unisex: "UNISEX" }
+            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ", viewAll: "ПЕРЕГЛЯНУТИ ВЕСЬ СПИСОК", men: "ЧОЛОВІЧІ", women: "ЖІНОЧІ", unisex: "УНІСЕКС", all: "ВСІ" },
+            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL", viewAll: "VEZI LISTA COMPLETĂ", men: "BĂRBAȚI", women: "FEMEI", unisex: "UNISEX", all: "TOATE" },
+            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL", viewAll: "VOIR TOUTE LA LISTE", men: "HOMMES", women: "FEMMES", unisex: "UNISEX", all: "TOUS" }
         };
 
         let currentLang = 'tr';
@@ -626,6 +668,7 @@
             const t = translations[lang];
             document.getElementById('searchInput').placeholder = t.placeholder;
             document.getElementById('start-text').innerText = t.start;
+            updateFilterButtonLabels();
             document.getElementById('viewAllBtn').innerText = t.viewAll;
 
             const splash = document.getElementById('splash-screen');
@@ -694,11 +737,39 @@
             return card;
         }
 
-        function showAll() {
+        function updateFilterButtonLabels() {
+            const t = translations[currentLang];
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons[0].innerText = t.all;
+            buttons[1].innerText = t.men;
+            buttons[2].innerText = t.women;
+            buttons[3].innerText = t.unisex;
+        }
+
+        function toggleViewAll() {
+            const filterButtons = document.getElementById('filterButtons');
+            const isActive = filterButtons.classList.contains('active');
+
+            if (isActive) {
+                // Hide filters and clear results
+                filterButtons.classList.remove('active');
+                document.getElementById('resultsArea').innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${translations[currentLang].start}</div></div>`;
+            } else {
+                // Show filters and display all
+                filterButtons.classList.add('active');
+                filterCategory('all');
+            }
+        }
+
+        function filterCategory(category) {
             const resultsArea = document.getElementById('resultsArea');
             const t = translations[currentLang];
             resultsArea.innerHTML = '';
             document.getElementById('searchInput').value = '';
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
             const men = vexesData.filter(i => i.code.startsWith('M')).sort((a, b) => a.code.localeCompare(b.code));
             const women = vexesData.filter(i => i.code.startsWith('W')).sort((a, b) => a.code.localeCompare(b.code));
@@ -715,9 +786,17 @@
                 });
             };
 
-            renderGroup(t.men, men);
-            renderGroup(t.women, women);
-            renderGroup(t.unisex, unisex);
+            if (category === 'all') {
+                renderGroup(t.men, men);
+                renderGroup(t.women, women);
+                renderGroup(t.unisex, unisex);
+            } else if (category === 'men') {
+                renderGroup(t.men, men);
+            } else if (category === 'women') {
+                renderGroup(t.women, women);
+            } else if (category === 'unisex') {
+                renderGroup(t.unisex, unisex);
+            }
         }
 
         function performSearch() {
