@@ -372,6 +372,15 @@
             transform: scale(1.05);
         }
 
+        .original-thumb {
+            width: 40px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 5px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
         .msg-box {
             text-align: center;
             padding-top: 60px;
@@ -388,6 +397,44 @@
             text-align: center;
             color: #999;
             margin-top: 20px;
+        }
+
+        .view-all-container {
+            text-align: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            background: #fff;
+            /* Ensure visibility */
+        }
+
+        .view-all-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Tenor Sans', sans-serif;
+            color: #666;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .view-all-btn:hover {
+            background: #f5f5f5;
+            color: #333;
+            border-color: #bbb;
+        }
+
+        .category-header {
+            width: 100%;
+            text-align: left;
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            font-family: 'Tenor Sans', sans-serif;
         }
     </style>
 </head>
@@ -421,6 +468,10 @@
             </div>
         </div>
 
+        <div class="view-all-container">
+            <button class="view-all-btn" id="viewAllBtn" onclick="showAll()">View All List</button>
+        </div>
+
         <div class="content-area" id="resultsArea">
             <div class="msg-box">
                 <div class="msg-icon">✦</div>
@@ -432,15 +483,15 @@
     <script>
         // --- CONFIG ---
         const translations = {
-            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL" },
-            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL" },
-            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ" },
-            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي" },
+            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL", viewAll: "TÜM LİSTEYİ GÖR", men: "ERKEK", women: "KADIN", unisex: "UNISEX" },
+            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL", viewAll: "VIEW FULL LIST", men: "MEN", women: "WOMEN", unisex: "UNISEX" },
+            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ПОКАЗАТЬ ВЕСЬ СПИСОК", men: "МУЖСКИЕ", women: "ЖЕНСКИЕ", unisex: "УНИСЕКС" },
+            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي", viewAll: "عرض القائمة الكاملة", men: "رجال", women: "نساء", unisex: "للجنسين" },
 
             // YENİ EKLENEN DİLLER
-            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ" },
-            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL" },
-            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL" }
+            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ", viewAll: "ПЕРЕГЛЯНУТИ ВЕСЬ СПИСОК", men: "ЧОЛОВІЧІ", women: "ЖІНОЧІ", unisex: "УНІСЕКС" },
+            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL", viewAll: "VEZI LISTA COMPLETĂ", men: "BĂRBAȚI", women: "FEMEI", unisex: "UNISEX" },
+            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL", viewAll: "VOIR TOUTE LA LISTE", men: "HOMMES", women: "FEMMES", unisex: "UNISEX" }
         };
 
         let currentLang = 'tr';
@@ -575,6 +626,7 @@
             const t = translations[lang];
             document.getElementById('searchInput').placeholder = t.placeholder;
             document.getElementById('start-text').innerText = t.start;
+            document.getElementById('viewAllBtn').innerText = t.viewAll;
 
             const splash = document.getElementById('splash-screen');
             const app = document.getElementById('app-container');
@@ -596,6 +648,76 @@
                 document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
                 element.classList.add('active');
             }
+        }
+
+        function createCardHTML(item, t) {
+            const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
+            const imagePath = `images/${item.code}.jpg`;
+            const placeholderPath = `images/placeholder.png`;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = function () { toggleCard(this); };
+
+            // Escape single quotes for the onclick handler
+            const safeName = item.name.replace(/'/g, "\\'");
+
+            card.innerHTML = `
+                <div class="card-main">
+                    <div style="display:flex; align-items:center; width:100%;">
+                        <div class="code-pill">${item.code}</div>
+                        <div class="info-col">
+                            <div class="family-text">${item.family || 'FRAGRANCE'}</div>
+                            <div class="perfume-name">${item.name}</div>
+                        </div>
+                    </div>
+                    <div class="arrow">▼</div>
+                </div>
+                
+                <div class="details-panel">
+                    <div class="compare-box">
+                        <div class="side">
+                            <div class="side-label">${t.beas}</div>
+                            <div class="bottle-icon"><div class="bottle-v">V</div></div>
+                        </div>
+                        <div class="vs">vs</div>
+                        <div class="side">
+                            <div class="side-label">${t.orig}</div>
+                            <img src="${imagePath}" class="original-thumb" onerror="this.onerror=null;this.src='${placeholderPath}';" alt="Original">
+                            <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                                <span>👁</span> ${t.btn}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function showAll() {
+            const resultsArea = document.getElementById('resultsArea');
+            const t = translations[currentLang];
+            resultsArea.innerHTML = '';
+            document.getElementById('searchInput').value = '';
+
+            const men = vexesData.filter(i => i.code.startsWith('M')).sort((a, b) => a.code.localeCompare(b.code));
+            const women = vexesData.filter(i => i.code.startsWith('W')).sort((a, b) => a.code.localeCompare(b.code));
+            const unisex = vexesData.filter(i => i.code.startsWith('U')).sort((a, b) => a.code.localeCompare(b.code));
+
+            const renderGroup = (title, list) => {
+                if (list.length === 0) return;
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerText = title;
+                resultsArea.appendChild(header);
+                list.forEach(item => {
+                    resultsArea.appendChild(createCardHTML(item, t));
+                });
+            };
+
+            renderGroup(t.men, men);
+            renderGroup(t.women, women);
+            renderGroup(t.unisex, unisex);
         }
 
         function performSearch() {
@@ -651,41 +773,7 @@
             }
 
             filtered.slice(0, 50).forEach(item => {
-                const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = function () { toggleCard(this); };
-
-                card.innerHTML = `
-                <div class="card-main">
-                    <div style="display:flex; align-items:center; width:100%;">
-                        <div class="code-pill">${item.code}</div>
-                        <div class="info-col">
-                            <div class="family-text">${item.family || 'FRAGRANCE'}</div>
-                            <div class="perfume-name">${item.name}</div>
-                        </div>
-                    </div>
-                    <div class="arrow">▼</div>
-                </div>
-                
-                <div class="details-panel">
-                    <div class="compare-box">
-                        <div class="side">
-                            <div class="side-label">${t.beas}</div>
-                            <div class="bottle-icon"><div class="bottle-v">V</div></div>
-                        </div>
-                        <div class="vs">vs</div>
-                        <div class="side">
-                            <div class="side-label">${t.orig}</div>
-                            <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
-                                <span>👁</span> ${t.btn}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
-                resultsArea.appendChild(card);
+                resultsArea.appendChild(createCardHTML(item, t));
             });
         }
 
