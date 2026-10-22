@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
     <title>VEXES GLOBAL</title>
+    <link rel="icon" type="image/png" href="images/vexes-logo.png">
+    <link rel="apple-touch-icon" href="images/vexes-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap"
         rel="stylesheet">
     <style>
@@ -61,6 +63,14 @@
             margin-bottom: 10px;
         }
 
+        .splash-logo-img {
+            width: 230px;
+            max-width: 70vw;
+            height: auto;
+            display: block;
+            margin-bottom: 14px;
+        }
+
         .splash-sub {
             font-size: 0.8rem;
             letter-spacing: 4px;
@@ -83,11 +93,10 @@
             color: #555;
             padding: 12px 0;
             width: 100px;
-            /* Sabit genişlik */
             font-family: 'Jost', sans-serif;
             letter-spacing: 1px;
             font-weight: 500;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s;
             border-radius: 8px;
@@ -134,6 +143,14 @@
             color: var(--accent-color);
             margin-bottom: 5px;
             text-decoration: none;
+        }
+
+        .brand-logo-img {
+            width: 168px;
+            max-width: 55vw;
+            height: auto;
+            display: block;
+            margin: 0 auto 8px auto;
         }
 
         .brand-caption {
@@ -202,6 +219,32 @@
         [dir="rtl"] .search-icon {
             left: auto;
             right: 16px;
+        }
+
+        /* --- QUIZ BUTTON (VEXES STYLE) --- */
+        .quiz-start-btn {
+            width: 100%;
+            margin-top: 5px;
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-family: 'Tenor Sans', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .quiz-start-btn:hover {
+            background: #333;
+            transform: translateY(-1px);
         }
 
         /* --- CONTENT LIST --- */
@@ -372,15 +415,6 @@
             transform: scale(1.05);
         }
 
-        .original-thumb {
-            width: 30px;
-            height: 50px;
-            object-fit: contain;
-            margin-bottom: 5px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-        }
-
         .msg-box {
             text-align: center;
             padding-top: 60px;
@@ -393,18 +427,11 @@
             opacity: 0.5;
         }
 
-        .no-results {
-            text-align: center;
-            color: #999;
-            margin-top: 20px;
-        }
-
         .view-all-container {
             text-align: center;
             margin-top: 10px;
             padding-bottom: 10px;
             background: #fff;
-            /* Ensure visibility */
         }
 
         .view-all-btn {
@@ -472,13 +499,115 @@
             color: #333;
             font-family: 'Tenor Sans', sans-serif;
         }
+
+        /* --- QUIZ OVERLAY (VEXES STYLE) --- */
+        .quiz-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.98);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .quiz-box {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .quiz-title {
+            font-family: 'Tenor Sans', sans-serif;
+            color: #000;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .quiz-close {
+            color: #999;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 5px;
+            transition: 0.3s;
+        }
+        
+        .quiz-close:hover { color: #000; }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: #1d1d1f;
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.4;
+            font-weight: 400;
+            font-family: 'Tenor Sans', sans-serif;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-opt-btn {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            color: #333;
+            padding: 16px 20px;
+            text-align: left;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quiz-opt-btn:hover {
+            border-color: #000;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .quiz-step {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #bbb;
+            margin-top: 25px;
+            letter-spacing: 2px;
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 
 <body>
 
     <div id="splash-screen">
-        <div class="splash-logo">veXes</div>
+        <img src="images/vexes-logo.png" alt="VEXES" class="splash-logo-img">
         <div class="splash-sub">INTELLIGENT LIBRARY</div>
 
         <div class="lang-grid">
@@ -489,28 +618,41 @@
             <button class="lang-btn" onclick="enterApp('ua')">УКРАЇНСЬКА</button>
             <button class="lang-btn" onclick="enterApp('ro')">ROMÂNĂ</button>
             <button class="lang-btn" onclick="enterApp('fr')">FRANÇAIS</button>
+            <button class="lang-btn" onclick="enterApp('hu')">MAGYAR</button>
+            <button class="lang-btn" onclick="enterApp('sq')">SHQIP</button>
+            <button class="lang-btn" onclick="enterApp('mk')">МАКЕДОНСКИ</button>
+            <button class="lang-btn" onclick="enterApp('el')">ΕΛΛΗΝΙΚΑ</button>
+            <button class="lang-btn" onclick="enterApp('sr')">SRPSKI</button>
+            <button class="lang-btn" onclick="enterApp('es')">ESPAÑOL</button>
+            <button class="lang-btn" onclick="enterApp('tg')">ТОҶИКӢ</button>
+            <button class="lang-btn" onclick="enterApp('uz')">O'ZBEK</button>
+            <button class="lang-btn" onclick="enterApp('kk')">ҚАЗАҚША</button>
         </div>
     </div>
 
     <div class="app-container" id="app-container">
         <div class="header">
-            <div class="lang-switch-small" onclick="location.reload()">Change Lang</div>
-            <div class="brand-logo">veXes</div>
+            <div class="lang-switch-small" onclick="showLangScreen()">LANG</div>
+            <img src="images/vexes-logo.png" alt="VEXES" class="brand-logo-img">
             <div class="brand-caption">SMART SEARCH</div>
 
             <div class="search-box">
                 <span class="search-icon">⚲</span>
                 <input type="text" class="search-input" id="searchInput" placeholder="" autocomplete="off">
             </div>
+
+            <button class="quiz-start-btn" id="quizStartBtn" onclick="startQuiz()">
+                <span>🔍</span> PARFÜMÜNÜ BUL (ANKET)
+            </button>
         </div>
 
         <div class="view-all-container">
             <button class="view-all-btn" id="viewAllBtn" onclick="toggleViewAll()">View All List</button>
             <div class="filter-buttons" id="filterButtons">
-                <button class="filter-btn active" onclick="filterCategory('all')">TÜMÜ</button>
-                <button class="filter-btn" onclick="filterCategory('men')">ERKEK</button>
-                <button class="filter-btn" onclick="filterCategory('women')">KADIN</button>
-                <button class="filter-btn" onclick="filterCategory('unisex')">UNISEX</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">TÜMÜ</button>
+                <button class="filter-btn" onclick="filterCategory('men', this)">ERKEK</button>
+                <button class="filter-btn" onclick="filterCategory('women', this)">KADIN</button>
+                <button class="filter-btn" onclick="filterCategory('unisex', this)">UNISEX</button>
             </div>
         </div>
 
@@ -522,23 +664,133 @@
         </div>
     </div>
 
+    <div id="quiz-modal" class="quiz-overlay hidden">
+        <div class="quiz-box">
+            <div class="quiz-header">
+                <div class="quiz-title" id="quizTitle">VEXES FINDER</div>
+                <div class="quiz-close" onclick="closeQuiz()">✕</div>
+            </div>
+            <div id="quiz-content">
+                </div>
+        </div>
+    </div>
+
     <script>
         // --- CONFIG ---
         const translations = {
-            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL", viewAll: "TÜM LİSTEYİ GÖR", men: "ERKEK", women: "KADIN", unisex: "UNISEX", all: "TÜMÜ" },
-            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL", viewAll: "VIEW FULL LIST", men: "MEN", women: "WOMEN", unisex: "UNISEX", all: "ALL" },
-            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ПОКАЗАТЬ ВЕСЬ СПИСОК", men: "МУЖСКИЕ", women: "ЖЕНСКИЕ", unisex: "УНИСЕКС", all: "ВСЕ" },
-            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي", viewAll: "عرض القائمة الكاملة", men: "رجال", women: "نساء", unisex: "للجنسين", all: "الكل" },
-
-            // YENİ EKLENEN DİLLER
-            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ", viewAll: "ПЕРЕГЛЯНУТИ ВЕСЬ СПИСОК", men: "ЧОЛОВІЧІ", women: "ЖІНОЧІ", unisex: "УНІСЕКС", all: "ВСІ" },
-            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL", viewAll: "VEZI LISTA COMPLETĂ", men: "BĂRBAȚI", women: "FEMEI", unisex: "UNISEX", all: "TOATE" },
-            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL", viewAll: "VOIR TOUTE LA LISTE", men: "HOMMES", women: "FEMMES", unisex: "UNISEX", all: "TOUS" }
+            tr: { placeholder: "Kod veya İsim Yazın...", btn: "İNCELE", start: "Akıllı arama için yazmaya başlayın...", empty: "Sonuç Bulunamadı", beas: "VEXES", orig: "ORİJİNAL", viewAll: "TÜM LİSTEYİ GÖR", men: "ERKEK", women: "KADIN", unisex: "UNISEX", all: "TÜMÜ", quizBtn: "PARFÜMÜNÜ BUL (ANKET)" },
+            en: { placeholder: "Type Code or Name...", btn: "VIEW", start: "Type to start smart search...", empty: "No Results Found", beas: "VEXES", orig: "ORIGINAL", viewAll: "VIEW FULL LIST", men: "MEN", women: "WOMEN", unisex: "UNISEX", all: "ALL", quizBtn: "FIND YOUR PERFUME (SURVEY)" },
+            ru: { placeholder: "Введите код или имя...", btn: "СМОТРЕТЬ", start: "Начните ввод для поиска...", empty: "Нет результатов", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ПОКАЗАТЬ ВЕСЬ СПИСОК", men: "МУЖСКИЕ", women: "ЖЕНСКИЕ", unisex: "УНИСЕКС", all: "ВСЕ", quizBtn: "НАЙТИ СВОЙ ПАРФЮМ (ОПРОС)" },
+            ar: { placeholder: "اكتب الرمز أو الاسم...", btn: "عرض", start: "اكتب لبدء البحث الذكي...", empty: "لا يوجد نتائج", beas: "بيز", orig: "أصلي", viewAll: "عرض القائمة الكاملة", men: "رجال", women: "نساء", unisex: "للجنسين", all: "الكل", quizBtn: "اعثر على عطرك (استبيان)" },
+            ua: { placeholder: "Введіть код або назву...", btn: "ПЕРЕГЛЯД", start: "Почніть введення для пошуку...", empty: "Нічого не знайдено", beas: "VEXES", orig: "ОРИГІНАЛ", viewAll: "ПЕРЕГЛЯНУТИ ВЕСЬ СПИСОК", men: "ЧОЛОВІЧІ", women: "ЖІНОЧІ", unisex: "УНІСЕКС", all: "ВСІ", quizBtn: "ЗНАЙТИ СВІЙ ПАРФУМ (ОПИТУВАННЯ)" },
+            ro: { placeholder: "Căutați cod sau nume...", btn: "VIZUALIZARE", start: "Începeți să tastați pentru a căuta...", empty: "Niciun rezultat găsit", beas: "VEXES", orig: "ORIGINAL", viewAll: "VEZI LISTA COMPLETĂ", men: "BĂRBAȚI", women: "FEMEI", unisex: "UNISEX", all: "TOATE", quizBtn: "GĂSEȘTE PARFUMUL TĂU (SONDAJ)" },
+            fr: { placeholder: "Chercher code ou nom...", btn: "VOIR", start: "Commencez à taper pour chercher...", empty: "Aucun résultat trouvé", beas: "VEXES", orig: "ORIGINAL", viewAll: "VOIR TOUTE LA LISTE", men: "HOMMES", women: "FEMMES", unisex: "UNISEX", all: "TOUS", quizBtn: "TROUVER VOTRE PARFUM (SONDAGE)" },
+            
+            // YENİ DİLLER (Macarca, Arnavutça, Makedonca)
+            hu: { placeholder: "Keresés kód vagy név...", btn: "MEGTEKINTÉS", start: "Kezdje el beírni a kereséshez...", empty: "Nincs találat", beas: "VEXES", orig: "EREDETI", viewAll: "TELJES LISTA MEGTEKINTÉSE", men: "FÉRFI", women: "NŐI", unisex: "UNISEX", all: "ÖSSZES", quizBtn: "TALÁLD MEG A PARFÜMÖD (FELMÉRÉS)" },
+            sq: { placeholder: "Kërko kodin ose emrin...", btn: "SHIKO", start: "Filloni të shkruani për të kërkuar...", empty: "Nuk u gjet asnjë rezultat", beas: "VEXES", orig: "ORIGJINALE", viewAll: "SHIKO LISTËN E PLOTË", men: "MESHKUJ", women: "FEMRA", unisex: "UNISEX", all: "TË GJITHA", quizBtn: "GJEJ PARFUMIN TËND (ANKETË)" },
+            mk: { placeholder: "Внесете код или име...", btn: "ВИДИ", start: "Започнете со пишување за пребарување...", empty: "Нема резултати", beas: "VEXES", orig: "ОРИГИНАЛ", viewAll: "ВИДИ ЈА ЦЕЛАТА ЛИСТА", men: "МАЖИ", women: "ЖЕНИ", unisex: "УНИСЕКС", all: "СИТЕ", quizBtn: "НАЈДИ ГО ТВОЈОТ ПАРФЕМ (АНКЕТА)" },
+            el: { placeholder: "Πληκτρολογήστε κωδικό ή όνομα...", btn: "ΔΕΙΤΕ", start: "Ξεκινήστε την αναζήτηση...", empty: "Δεν βρέθηκαν αποτελέσματα", beas: "VEXES", orig: "ΠΡΩΤΟΤΥΠΟ", viewAll: "ΔΕΙΤΕ ΟΛΗ ΤΗ ΛΙΣΤΑ", men: "ΑΝΔΡΙΚΑ", women: "ΓΥΝΑΙΚΕΙΑ", unisex: "UNISEX", all: "ΟΛΑ", quizBtn: "ΒΡΕΙΤΕ ΤΟ ΑΡΩΜΑ ΣΑΣ (ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ)" },
+            sr: { placeholder: "Unesite kod ili naziv...", btn: "POGLEDAJ", start: "Počnite sa unosom za pretragu...", empty: "Nema rezultata", beas: "VEXES", orig: "ORIGINAL", viewAll: "PRIKAŽI CELU LISTU", men: "MUŠKI", women: "ŽENSKI", unisex: "UNISEX", all: "SVI", quizBtn: "PRONAĐI SVOJ PARFEM (ANKETA)" },
+            es: { placeholder: "Escribe el código o nombre...", btn: "VER", start: "Empieza a escribir para buscar...", empty: "Sin resultados", beas: "VEXES", orig: "ORIGINAL", viewAll: "VER LISTA COMPLETA", men: "HOMBRE", women: "MUJER", unisex: "UNISEX", all: "TODOS", quizBtn: "ENCUENTRA TU PERFUME (TEST)" },
+            tg: { placeholder: "Рамз ё номро нависед...", btn: "ДИДАН", start: "Барои ҷустуҷӯ нависед...", empty: "Натиҷа нест", beas: "VEXES", orig: "АСЛӢ", viewAll: "ДИДАНИ РӮЙХАТИ ПУРРА", men: "МАРДОНА", women: "ЗАНОНА", unisex: "УНИСЕКС", all: "ҲАМА", quizBtn: "АТРИ ХУДРО ЁБЕД (ПУРСИШНОМА)" },
+            uz: { placeholder: "Kod yoki nom kiriting...", btn: "KO'RISH", start: "Qidirish uchun yozishni boshlang...", empty: "Natija topilmadi", beas: "VEXES", orig: "ASL", viewAll: "TO'LIQ RO'YXATNI KO'RISH", men: "ERKAKLAR", women: "AYOLLAR", unisex: "UNISEKS", all: "BARCHASI", quizBtn: "O'Z ATIRINGIZNI TOPING (SO'ROVNOMA)" },
+            kk: { placeholder: "Код немесе атауды енгізіңіз...", btn: "КӨРУ", start: "Іздеу үшін жаза бастаңыз...", empty: "Нәтиже жоқ", beas: "VEXES", orig: "ТҮПНҰСҚА", viewAll: "ТОЛЫҚ ТІЗІМДІ КӨРУ", men: "ЕРЛЕР", women: "ӘЙЕЛДЕР", unisex: "УНИСЕКС", all: "БАРЛЫҒЫ", quizBtn: "ӨЗ ХАТЫҢЫЗДЫ ТАБЫҢЫЗ (САУАЛНАМА)" }
         };
 
         let currentLang = 'tr';
+        let activeFilter = 'all';
 
-        // --- VEXES ULTIMATE DATA (FROM TEXT FILE) ---
+        // --- QUIZ QUESTIONS DATA (Updated with New Languages) ---
+        const quizQuestions = [
+            {
+                id: 'gender',
+                text: { 
+                    tr: "Hangi cinsiyet için parfüm arıyorsunuz?", 
+                    en: "Who is this fragrance for?", 
+                    ru: "Для кого этот аромат?", 
+                    ar: "لمن هذا العطر؟",
+                    ua: "Для кого цей парфум?",
+                    ro: "Pentru cine este acest parfum?",
+                    fr: "Pour qui est ce parfum?",
+                    hu: "Kinek keresel parfümöt?", 
+                    sq: "Për kë po kërkoni parfum?", 
+                    mk: "За кого барате парфем?",
+                    el: "Για ποιον ψάχνετε άρωμα;", sr: "Za koga tražite parfem?", es: "¿Para quién buscas la fragancia?", tg: "Ин атр барои кӣ аст?", uz: "Bu atir kim uchun?", kk: "Бұл хош иіс кімге арналған?"
+                },
+                options: [
+                    { label: { tr: "Erkek", en: "Men", ru: "Мужчины", ar: "رجال", ua: "Чоловіки", ro: "Bărbați", fr: "Hommes", hu: "Férfi", sq: "Meshkuj", mk: "Мажи", el: "Ανδρικό", sr: "Muški", es: "Hombre", tg: "Мард", uz: "Erkak", kk: "Ерлерге" }, value: "men" },
+                    { label: { tr: "Kadın", en: "Women", ru: "Женщины", ar: "نساء", ua: "Жінки", ro: "Femei", fr: "Femmes", hu: "Nők", sq: "Femra", mk: "Жени", el: "Γυναικείο", sr: "Ženski", es: "Mujer", tg: "Зан", uz: "Ayol", kk: "Әйелдерге" }, value: "women" },
+                    { label: { tr: "Unisex / Fark Etmez", en: "Unisex / Any", ru: "Унисекс", ar: "للجنسين", ua: "Унісекс", ro: "Unisex", fr: "Unisexe", hu: "Unisex / Mindegy", sq: "Unisex / S'ka rëndësi", mk: "Унисекс / Сеедно", el: "Unisex / Δεν έχει σημασία", sr: "Unisex / Svejedno", es: "Unisex / Me da igual", tg: "Унисекс / Фарқ надорад", uz: "Uniseks / Farqi yo'q", kk: "Унисекс / Маңызды емес" }, value: "unisex" }
+                ]
+            },
+            {
+                id: 'occasion',
+                text: { 
+                    tr: "Bu parfümü genellikle nerede kullanacaksınız?", 
+                    en: "Where will you wear this?", 
+                    ru: "Куда вы будете носить?", 
+                    ar: "أين ستستخدمه؟",
+                    ua: "Де ви будете його носити?",
+                    ro: "Unde îl vei purta?",
+                    fr: "Où allez-vous le porter?",
+                    hu: "Hol fogod leginkább használni?", 
+                    sq: "Ku do ta përdorni më shpesh?", 
+                    mk: "Каде ќе го користите најчесто?",
+                    el: "Πού θα το φοράτε συνήθως;", sr: "Gde ćete ga najčešće nositi?", es: "¿Dónde la vas a usar normalmente?", tg: "Онро асосан дар куҷо истифода мебаред?", uz: "Uni asosan qayerda ishlatasiz?", kk: "Оны көбінесе қайда қолданасыз?"
+                },
+                options: [
+                    { label: { tr: "Günlük / Ofis / Spor", en: "Daily / Office / Gym", ru: "Ежедневно / Офис", ar: "يومي / مكتب", ua: "Щодня / Офіс", ro: "Zilnic / Birou", fr: "Quotidien / Bureau", hu: "Napi / Iroda / Sport", sq: "Përditshme / Zyrë", mk: "Дневно / Канцеларија", el: "Καθημερινά / Γραφείο / Γυμναστήριο", sr: "Svakodnevno / Kancelarija / Teretana", es: "Diario / Oficina / Gimnasio", tg: "Ҳаррӯза / Идора / Варзиш", uz: "Kundalik / Ofis / Sport", kk: "Күнделікті / Кеңсе / Спорт" }, type: "fresh" },
+                    { label: { tr: "Özel Gece / Davet / Date", en: "Night Out / Date", ru: "Вечер / Свидание", ar: "ليلة خاصة", ua: "Вечір / Побачення", ro: "Seară / Întâlnire", fr: "Soirée / Rendez-vous", hu: "Esti / Randi / Buli", sq: "Mbrëmje / takim", mk: "Вечер / Состанок", el: "Βραδινή έξοδος / Ραντεβού", sr: "Noćni izlazak / Sastanak", es: "Noche / Cita", tg: "Шаби махсус / Вохӯрӣ", uz: "Kechki tadbir / Uchrashuv", kk: "Түнгі кездесу / Шақыру" }, type: "heavy" },
+                    { label: { tr: "İmza Kokum Olsun (Her Zaman)", en: "Signature Scent (Anytime)", ru: "Подпись (Всегда)", ar: "توقيع شخصي", ua: "Мій підпис (Завжди)", ro: "Semnătură (Oricând)", fr: "Signature (Tout le temps)", hu: "Saját illat (Bármikor)", sq: "Aroma ime (Gjithmonë)", mk: "Мој потпис (Секогаш)", el: "Η υπογραφή μου (πάντα)", sr: "Moj potpis (uvek)", es: "Mi aroma insignia (siempre)", tg: "Атри имзои ман (ҳамеша)", uz: "Mening imzo hidim (har doim)", kk: "Менің қолтаңбам (әрдайым)" }, type: "balanced" }
+                ]
+            },
+            {
+                id: 'scent_char',
+                text: { 
+                    tr: "Hangi notalar sizi daha çok çeker?", 
+                    en: "Which notes attract you?", 
+                    ru: "Какие ноты вам нравятся?", 
+                    ar: "ما هي الروائح التي تفضلها؟",
+                    ua: "Які ноти вам подобаються?",
+                    ro: "Ce note te atrag?",
+                    fr: "Quelles notes vous attirent?",
+                    hu: "Milyen illatjegyek tetszenek?", 
+                    sq: "Cilat nota ju tërheqin?", 
+                    mk: "Кои мирисни ноти ве привлекуваат?",
+                    el: "Ποιες νότες σας έλκουν περισσότερο;", sr: "Koje note vas najviše privlače?", es: "¿Qué notas te atraen más?", tg: "Кадом нотаҳо шуморо бештар ҷалб мекунанд?", uz: "Qaysi notalar sizni ko'proq jalb qiladi?", kk: "Қандай ноталар сізге көбірек ұнайды?"
+                },
+                options: [
+                    { label: { tr: "Ferah: Turunçgil, Deniz", en: "Fresh: Citrus, Aquatic", ru: "Свежие: Цитрус, Вода", ar: "منعش: حمضيات", ua: "Свіжі: Цитрус", ro: "Proaspăt: Citrice", fr: "Frais: Agrumes", hu: "Friss: Citrus, Víz", sq: "Freskët: Agrume, Det", mk: "Свежи: Цитрус, Вода", el: "Δροσερό: Εσπεριδοειδή, Θαλασσινό", sr: "Sveže: Citrus, Vodenasto", es: "Fresco: Cítricos, Acuático", tg: "Тоза: Ситрус, Баҳрӣ", uz: "Yengil: Sitrus, Dengiz", kk: "Жаңа: Цитрус, Теңіз" }, tags: ["CITRUS", "AQUATIC", "GREEN", "AROMATIC", "MARINE"] },
+                    { label: { tr: "Çekici: Çiçeksi, Vanilya", en: "Attractive: Floral, Vanilla", ru: "Цветочные, Ваниль", ar: "زهري، فانيليا", ua: "Квіткові, Ваніль", ro: "Atractiv: Floral", fr: "Attrayant: Floral", hu: "Vonzó: Virágos, Vanília", sq: "Tërheqës: Lule, Vanilje", mk: "Привлечни: Цветни, Ванила", el: "Ελκυστικό: Λουλουδένιο, Βανίλια", sr: "Privlačno: Cvetno, Vanila", es: "Atractivo: Floral, Vainilla", tg: "Ҷолиб: Гулӣ, Ванил", uz: "Jozibali: Gulli, Vanil", kk: "Тартымды: Гүлді, Ваниль" }, tags: ["FLORAL", "POWDERY", "VANILLA", "FRUITY", "MUSKY"] },
+                    { label: { tr: "Güçlü: Odunsu, Baharatlı", en: "Strong: Woody, Spicy", ru: "Древесные, Пряные", ar: "خشبي، حار", ua: "Деревні, Пряні", ro: "Puternic: Lemnos", fr: "Fort: Boisé", hu: "Erős: Fás, Fűszeres", sq: "Fortë: Drunore, Erëza", mk: "Силен: Дрвенест, Зачинет", el: "Δυνατό: Ξυλώδες, Πικάντικο", sr: "Jako: Drvenasto, Začinsko", es: "Intenso: Amaderado, Especiado", tg: "Пурқувват: Чӯбӣ, Адвӣ", uz: "Kuchli: Yog'ochli, Ziravorli", kk: "Күшті: Ағашты, Дәмдеуіш" }, tags: ["WOODY", "SPICY", "OUD", "ORIENTAL", "LEATHER", "AMBER", "AMBERY"] },
+                    { label: { tr: "Tatlı: Gurme, Şekerli", en: "Sweet: Gourmand, Sugar", ru: "Сладкие: Гурманские", ar: "حلو: شوكولاتة", ua: "Солодкі: Гурманські", ro: "Dulce: Gurmand", fr: "Doux: Gourmand", hu: "Édes: Ínyenc, Cukros", sq: "Ëmbël: Gurman, Sheqer", mk: "Слатки: Гурмански, Шеќер", el: "Γλυκό: Γκουρμάν, Ζαχαρωτό", sr: "Slatko: Gurmansko, Šećerno", es: "Dulce: Gourmand, Azucarado", tg: "Ширин: Гурман, Қандӣ", uz: "Shirin: Gurman, Shakarli", kk: "Тәтті: Гурман, Қантты" } , tags: ["GOURMAND", "SWEET", "CHOCOLATE", "FRUITY", "SWEETY"] }
+                ]
+            },
+            {
+                id: 'sillage',
+                text: { 
+                    tr: "Yayılımı (Farkedilirliği) nasıl olsun?", 
+                    en: "How strong should it be?", 
+                    ru: "Насколько сильным он должен быть?", 
+                    ar: "كيف تريده أن يكون؟",
+                    ua: "Наскільки сильним він має бути?",
+                    ro: "Cât de puternic ar trebui să fie?",
+                    fr: "Quelle intensité préférez-vous?",
+                    hu: "Milyen erős legyen a párolgás?", 
+                    sq: "Sa e fortë të jetë aroma?", 
+                    mk: "Колку да биде јак мирисот?",
+                    el: "Πόσο έντονο να είναι;", sr: "Koliko snažan da bude?", es: "¿Qué intensidad prefieres?", tg: "Чӣ қадар пурқувват бошад?", uz: "Qanchalik kuchli bo'lsin?", kk: "Қаншалықты күшті болсын?"
+                },
+                options: [
+                    { label: { tr: "Hafif ve Zarif", en: "Light & Elegant", ru: "Легкий", ar: "خفيف", ua: "Легкий", ro: "Ușor", fr: "Léger", hu: "Könnyű és Elegáns", sq: "Lehtë dhe Elegant", mk: "Лесен и Елегантен", el: "Ελαφρύ και Κομψό", sr: "Lagano i elegantno", es: "Ligero y elegante", tg: "Сабук ва нозук", uz: "Yengil va nafis", kk: "Жеңіл және әсем" }, weight: 1 },
+                    { label: { tr: "Ortalama / Dengeli", en: "Moderate / Balanced", ru: "Умеренный", ar: "متوسط", ua: "Помірний", ro: "Moderat", fr: "Modéré", hu: "Közepes / Kiegyensúlyozott", sq: "Mesatare / Balancuar", mk: "Среден / Балансиран", el: "Μέτριο / Ισορροπημένο", sr: "Umereno / Balansirano", es: "Moderado / Equilibrado", tg: "Миёна / Мутавозин", uz: "O'rtacha / Muvozanatli", kk: "Орташа / Тепе-тең" }, weight: 2 },
+                    { label: { tr: "Odayı Doldursun (Bomba)", en: "Beast Mode (Heavy)", ru: "Очень сильный", ar: "قوي جدا", ua: "Дуже сильний", ro: "Foarte puternic", fr: "Très fort", hu: "Nagyon Erős (Beast)", sq: "Shumë e fortë (Bombë)", mk: "Многу јак (Бомба)", el: "Να γεμίζει το δωμάτιο", sr: "Da ispuni prostoriju", es: "Que llene la habitación", tg: "Ҳуҷраро пур кунад", uz: "Xonani to'ldirsin", kk: "Бөлмені толтыратын" }, weight: 3 }
+                ]
+            }
+        ];
+
+        // --- VEXES DATA ---
         const vexesData = [
             { code: "M101", name: "CHANEL - BLEU DE CHANEL", family: "WOODY AROMATIC" },
             { code: "M102", name: "PACO RABANNE INVICTUS", family: "FRESH MARINE" },
@@ -567,6 +819,10 @@
             { code: "M126", name: "BALDESSARINI-BALISTIC AMBRE", family: "ORIENTAL WOODY" },
             { code: "M127", name: "PACO RABANNE-ULTRAVIOLET HOMME", family: "WOODY ORIENTAL" },
             { code: "M128", name: "VERSACE-VERSACE MEN EAU FRAICHE", family: "LEATHER" },
+            { code: "M129", name: "HERMES-TERRE D HERMES TYPE", family: "FLORAL" },
+            { code: "M130", name: "HUGO BOSS-BOSS BOTTLED TYPE", family: "WOODY-ORIENTAL" },
+            { code: "M131", name: "CAROLINA HERRERA-212 MEN TYPE", family: "WOODY-MUSKY" },
+            { code: "M132", name: "LACOSTE-ESSENTIAL TYPE", family: "WOODY-AROMATIC" },
             { code: "W301", name: "LANVIN - ECLAT D'ARPEGE", family: "FLORAL CITRUS" },
             { code: "W302", name: "VERSACE - BRIGHT CRYSTAL", family: "FLORAL AQUATIC" },
             { code: "W303", name: "VICTORIA'S SECRET - BOMBSHELL", family: "FRUITY FLORAL" },
@@ -598,6 +854,13 @@
             { code: "W331", name: "ZADIC VOLTAIRE - THIS IS HER", family: "ORIENTAL VANILLA" },
             { code: "W332", name: "CALVIN KLEIN-EUPHORIA", family: "FLORAL ORIENTAL" },
             { code: "W333", name: "VERSACE - VERSENSE", family: "WOODY LORAL-MUSK" },
+            { code: "W334", name: "BURBERRY-HER TYPE", family: "FRUITY-FLORAL" },
+            { code: "W335", name: "ARMAND BASI-IN RED TYPE", family: "CITRUS-WOODY" },
+            { code: "W336", name: "DIOR-MISS DIOR BLOOMING BOUQUET TYPE", family: "FLORAL-MUSKY-AMBERY" },
+            { code: "W337", name: "FRAGRANCE COMPANY HFC FOR WOMEN", family: "ORIENTAL-MUSKY" },
+            { code: "W338", name: "KAJAL-DAHAB", family: "FRUITY-FLORIENTAL" },
+            { code: "W339", name: "JEAN PAUL GAULTIER - SCANDAL WOMEN", family: "CITRUS-FLORAL" },
+            { code: "W340", name: "PACO RABANNE - OLYMPEA WOMEN", family: "FLORAL-ORIENTAL" },
             { code: "U601", name: "ESCENTRIC MOLECULES - ESCENTRIC 02", family: "ORIENTAL FLORAL" },
             { code: "U602", name: "SOSPIRA - ERBA PURA", family: "ORIENTAL AMBER" },
             { code: "U603", name: "TIZIANA TERENZI - KIRKE", family: "FLORAL FRUITY" },
@@ -632,22 +895,25 @@
             { code: "U632", name: "THOMAS KOSMALA-APRES L AMOUR NO 4", family: "WOODY-AMBERY" },
             { code: "U633", name: "ESCENTRIC 02 ESCENTRIC MOLECULES", family: "WOODY-AMBERY" },
             { code: "U634", name: "CHRISTIAN RICHARD-WHITE CHOCOLA", family: "ORIENTAL-GOURMAND" },
-            { code: "U635", name: "VILHELM PARFUMERIE-MANGO SKIN", family: "FRUITY-FLORAL" },
-            { code: "M129", name: "HERMES-TERRE D HERMES TYPE", family: "FLORAL" },
-            { code: "M130", name: "HUGO BOSS-BOSS BOTTLED TYPE", family: "WOODY-ORIENTAL" },
-            { code: "M131", name: "CAROLINA HERRERA-212 MEN TYPE", family: "WOODY-MUSKY" },
-            { code: "M132", name: "LACOSTE-ESSENTIAL TYPE", family: "WOODY-AROMATIC" },
-            { code: "W334", name: "BURBERRY-HER TYPE", family: "FRUITY-FLORAL" },
-            { code: "W335", name: "ARMAND BASI-IN RED TYPE", family: "CITRUS-WOODY" },
-            { code: "W336", name: "DIOR-MISS DIOR BLOOMING BOUQUET TYPE", family: "FLORAL-MUSKY-AMBERY" },
-            { code: "W337", name: "FRAGRANCE COMPANY HFC FOR WOMEN", family: "ORIENTAL-MUSKY" },
-            { code: "W338", name: "KAJAL-DAHAB", family: "FRUITY-FLORIENTAL" }
+            { code: "U635", name: "VILHELM PARFUMERIE-MANGO SKIN", family: "FRUITY-FLORAL" }
         ];
 
         // --- HELPER FUNCTIONS ---
         function cleanString(str) { return str.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); }
 
-        // --- FUZZY SEARCH ALGORITHM (Levenshtein Distance) ---
+        // Kod sıralaması: M → W → U, her blok kendi içinde numaraya göre küçükten büyüğe
+        function codeSortKey(item) {
+            const prefix = item.code.charAt(0).toUpperCase();
+            const rank = prefix === 'M' ? 1 : prefix === 'W' ? 2 : prefix === 'U' ? 3 : 4;
+            const num = parseInt(item.code.replace(/[^0-9]/g, ''), 10);
+            return rank * 10000 + (isNaN(num) ? 0 : num);
+        }
+
+        function sortByCode(items) {
+            return items.slice().sort((a, b) => codeSortKey(a) - codeSortKey(b));
+        }
+
+        // --- FUZZY SEARCH ALGORITHM ---
         function levenshtein(a, b) {
             const matrix = [];
             for (let i = 0; i <= b.length; i++) matrix[i] = [i];
@@ -661,15 +927,40 @@
             return matrix[b.length][a.length];
         }
 
+        // --- SHUFFLE FUNCTION ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         function enterApp(lang) {
             currentLang = lang;
+            const isoLang = lang === 'ua' ? 'uk' : lang;
+            document.documentElement.lang = isoLang;
             if (lang === 'ar') document.body.dir = 'rtl'; else document.body.dir = 'ltr';
 
             const t = translations[lang];
             document.getElementById('searchInput').placeholder = t.placeholder;
-            document.getElementById('start-text').innerText = t.start;
+            const startText = document.getElementById('start-text');
+            if (startText) startText.innerText = t.start;
             updateFilterButtonLabels();
             document.getElementById('viewAllBtn').innerText = t.viewAll;
+            
+            // Update Quiz Button Text
+            const quizBtnHtml = `<span>🔍</span> ${t.quizBtn || "FIND YOUR PERFUME (SURVEY)"}`;
+            document.getElementById('quizStartBtn').innerHTML = quizBtnHtml;
+            document.getElementById('quizTitle').innerText = t.quizBtn || "FINDER";
+
+            // Dil değişince açık liste veya arama yeni dilde yeniden çizilsin
+            const filterButtons = document.getElementById('filterButtons');
+            if (filterButtons.classList.contains('active')) {
+                filterCategory(activeFilter);
+            } else if (document.getElementById('searchInput').value.trim()) {
+                performSearch();
+            }
 
             const splash = document.getElementById('splash-screen');
             const app = document.getElementById('app-container');
@@ -684,6 +975,13 @@
             }, 600);
         }
 
+        function showLangScreen() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.display = 'flex';
+            splash.style.pointerEvents = 'auto';
+            requestAnimationFrame(() => { splash.style.opacity = '1'; });
+        }
+
         function toggleCard(element) {
             if (element.classList.contains('active')) {
                 element.classList.remove('active');
@@ -695,14 +993,10 @@
 
         function createCardHTML(item, t) {
             const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
-            const imagePath = `images/${item.code}.jpg`;
-            const placeholderPath = `images/placeholder.png`;
-
             const card = document.createElement('div');
             card.className = 'card';
             card.onclick = function () { toggleCard(this); };
 
-            // Escape single quotes for the onclick handler
             const safeName = item.name.replace(/'/g, "\\'");
 
             card.innerHTML = `
@@ -750,29 +1044,29 @@
             const isActive = filterButtons.classList.contains('active');
 
             if (isActive) {
-                // Hide filters and clear results
                 filterButtons.classList.remove('active');
                 document.getElementById('resultsArea').innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${translations[currentLang].start}</div></div>`;
             } else {
-                // Show filters and display all
                 filterButtons.classList.add('active');
-                filterCategory('all');
+                filterCategory('all', filterButtons.querySelector('.filter-btn'));
             }
         }
 
-        function filterCategory(category) {
+        function filterCategory(category, btn) {
+            activeFilter = category;
             const resultsArea = document.getElementById('resultsArea');
             const t = translations[currentLang];
             resultsArea.innerHTML = '';
             document.getElementById('searchInput').value = '';
 
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            const order = ['all', 'men', 'women', 'unisex'];
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = btn || document.querySelectorAll('.filter-btn')[order.indexOf(category)];
+            if (activeBtn) activeBtn.classList.add('active');
 
-            const men = vexesData.filter(i => i.code.startsWith('M')).sort((a, b) => a.code.localeCompare(b.code));
-            const women = vexesData.filter(i => i.code.startsWith('W')).sort((a, b) => a.code.localeCompare(b.code));
-            const unisex = vexesData.filter(i => i.code.startsWith('U')).sort((a, b) => a.code.localeCompare(b.code));
+            const men = sortByCode(vexesData.filter(i => i.code.startsWith('M')));
+            const women = sortByCode(vexesData.filter(i => i.code.startsWith('W')));
+            const unisex = sortByCode(vexesData.filter(i => i.code.startsWith('U')));
 
             const renderGroup = (title, list) => {
                 if (list.length === 0) return;
@@ -811,36 +1105,28 @@
             }
 
             const cleanQuery = cleanString(query);
-            const queryUpper = query.toUpperCase();
 
-            // --- SCORING SYSTEM ---
             let scoredResults = vexesData.map(item => {
                 let score = 0;
                 const itemCodeClean = cleanString(item.code);
                 const itemNameClean = cleanString(item.name);
 
-                // 1. KOD EŞLEŞMESİ (En Yüksek)
                 if (itemCodeClean === cleanQuery) score = 100;
                 else if (itemCodeClean.includes(cleanQuery)) score = 80;
 
-                // 2. İSİM EŞLEŞMESİ
                 if (score < 80) {
                     if (itemNameClean === cleanQuery) score = 90;
                     else if (itemNameClean.includes(cleanQuery)) score = 70;
-
-                    // 3. FUZZY MATCH (Harf Hatası Toleransı)
                     else if (cleanQuery.length > 2) {
                         const dist = levenshtein(cleanQuery, itemNameClean);
                         const maxLen = Math.max(cleanQuery.length, itemNameClean.length);
                         const similarity = 1 - (dist / maxLen);
-
                         if (similarity > 0.5) score = 50 * similarity;
                     }
                 }
                 return { ...item, score: score };
             });
 
-            // Filtreleme
             const filtered = scoredResults
                 .filter(item => item.score > 25)
                 .sort((a, b) => b.score - a.score);
@@ -856,6 +1142,180 @@
         }
 
         document.getElementById('searchInput').addEventListener('input', performSearch);
+
+        // --- QUIZ LOGIC (NEW FEATURE) ---
+        let currentQuizStep = 0;
+        let quizAnswers = {};
+
+        function startQuiz() {
+            currentQuizStep = 0;
+            quizAnswers = {};
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+        }
+
+        function renderQuestion() {
+            const q = quizQuestions[currentQuizStep];
+            const content = document.getElementById('quiz-content');
+            const lang = currentLang;
+
+            if (!q) {
+                showQuizResults();
+                return;
+            }
+
+            let html = `
+                <div class="question-text">${q.text[lang] || q.text['en']}</div>
+                <div class="quiz-options">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                const text = opt.label[lang] || opt.label['en'];
+                html += `<div class="quiz-opt-btn" onclick="handleAnswer(${idx})">
+                            <span>${text}</span> <span>→</span>
+                         </div>`;
+            });
+
+            html += `</div>
+                     <div class="quiz-step">${currentQuizStep + 1} / ${quizQuestions.length}</div>`;
+
+            content.innerHTML = html;
+        }
+
+        function handleAnswer(optionIndex) {
+            const q = quizQuestions[currentQuizStep];
+            const selected = q.options[optionIndex];
+
+            if (q.id === 'gender') quizAnswers.gender = selected.value;
+            if (q.id === 'occasion') quizAnswers.style = selected.type; 
+            if (q.id === 'scent_char') quizAnswers.tags = selected.tags;
+            if (q.id === 'sillage') quizAnswers.weight = selected.weight;
+
+            currentQuizStep++;
+            renderQuestion();
+        }
+
+        function showQuizResults() {
+            const content = document.getElementById('quiz-content');
+            const t = translations[currentLang];
+            
+            content.innerHTML = `<div class="msg-box"><div class="msg-icon">✦</div><div>${t.start}...</div></div>`;
+
+            // 1. Score Candidates
+            let allScored = vexesData.map(item => {
+                let score = 0;
+                const family = item.family.toUpperCase();
+
+                if (quizAnswers.tags) {
+                    quizAnswers.tags.forEach(tag => {
+                        if (family.includes(tag)) score += 20;
+                    });
+                }
+
+                if (quizAnswers.style === 'fresh') {
+                    if (family.includes('CITRUS') || family.includes('AQUATIC') || family.includes('GREEN')) score += 15;
+                    if (family.includes('ORIENTAL') || family.includes('OUD')) score -= 10;
+                } else if (quizAnswers.style === 'heavy') {
+                    if (family.includes('ORIENTAL') || family.includes('SPICY') || family.includes('GOURMAND') || family.includes('OUD')) score += 15;
+                    if (family.includes('CITRUS') && !family.includes('WOODY')) score -= 5;
+                }
+
+                if (quizAnswers.weight === 3) {
+                     if (family.includes('OUD') || family.includes('VANILLA') || family.includes('AMBERY')) score += 10;
+                }
+
+                return { ...item, score: score };
+            }).filter(i => i.score > 0);
+
+            // 2. Gender Logic & Randomization
+            let finalSelection = [];
+            const selectionCount = 5;
+
+            if (quizAnswers.gender === 'unisex') {
+                 let pool = allScored.filter(i => i.code.startsWith('U')).sort((a,b) => b.score - a.score).slice(0, 15);
+                 finalSelection = shuffleArray(pool).slice(0, selectionCount);
+            } else {
+                 const targetPrefix = quizAnswers.gender === 'men' ? 'M' : 'W';
+
+                 // Primary Pool (Target Gender)
+                 let primaryDocs = allScored.filter(i => i.code.startsWith(targetPrefix)).sort((a,b) => b.score - a.score).slice(0, 15);
+                 // Secondary Pool (Unisex)
+                 let secondaryDocs = allScored.filter(i => i.code.startsWith('U')).sort((a,b) => b.score - a.score).slice(0, 10);
+
+                 primaryDocs = shuffleArray(primaryDocs);
+                 secondaryDocs = shuffleArray(secondaryDocs);
+
+                 let selectedPrimary = primaryDocs.slice(0, 3);
+                 let selectedSecondary = secondaryDocs.slice(0, 2);
+
+                 finalSelection = [...selectedPrimary, ...selectedSecondary];
+                 
+                 if (finalSelection.length < 5) {
+                     let extraNeeded = 5 - finalSelection.length;
+                     let morePrimary = primaryDocs.slice(3, 3 + extraNeeded);
+                     finalSelection = [...finalSelection, ...morePrimary];
+                 }
+            }
+
+            finalSelection = shuffleArray(finalSelection);
+
+            // 4. Render Results
+            if (finalSelection.length === 0) {
+                content.innerHTML = `<div style="text-align:center; padding:20px;">
+                    <div style="font-size:3rem;">∅</div>
+                    <p style="margin-top:20px;">${t.empty}</p>
+                    <button class="filter-btn active" style="margin:20px auto; display:inline-block;" onclick="startQuiz()">RESTART</button>
+                </div>`;
+            } else {
+                let html = `<div style="text-align:center; color:#000; margin-bottom:15px; font-family:'Tenor Sans',serif;">TOP MATCHES</div>`;
+                
+                finalSelection.forEach(item => {
+                     // Reuse the card creation function but inject it as HTML string
+                     // We need to re-create the HTML structure manually here to insert into innerHTML
+                     const googleSearch = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.name + " perfume bottle")}`;
+                     const safeName = item.name.replace(/'/g, "\\'");
+                     
+                     html += `
+                        <div class="card" onclick="toggleCard(this)">
+                            <div class="card-main">
+                                <div style="display:flex; align-items:center; width:100%;">
+                                    <div class="code-pill">${item.code}</div>
+                                    <div class="info-col">
+                                        <div class="family-text">${item.family}</div>
+                                        <div class="perfume-name">${item.name}</div>
+                                    </div>
+                                </div>
+                                <div class="arrow">▼</div>
+                            </div>
+
+                            <div class="details-panel">
+                                <div class="compare-box">
+                                    <div class="side">
+                                        <div class="side-label">${t.beas}</div>
+                                        <div class="bottle-icon"><div class="bottle-v">V</div></div>
+                                    </div>
+                                    <div class="vs">vs</div>
+                                    <div class="side">
+                                        <div class="side-label">${t.orig}</div>
+                                        <a href="${googleSearch}" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                                            <span>👁</span> ${t.btn}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     `;
+                });
+                
+                html += `<button class="filter-btn active" style="width:100%; justify-content:center; margin-top:20px; background:#000; color:#fff;" onclick="startQuiz()">RESTART</button>`;
+                html += `<button class="filter-btn" style="width:100%; justify-content:center; margin-top:10px; background:transparent; border:1px solid #ddd; color:#666;" onclick="closeQuiz()">CLOSE</button>`;
+                content.innerHTML = html;
+            }
+        }
 
     </script>
 
